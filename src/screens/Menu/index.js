@@ -1,14 +1,16 @@
-import React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import React from 'react';
+import {StyleSheet, Text, View} from 'react-native';
+import {Icon} from 'react-native-elements';
+import {Search} from '../../components';
 
 const Menu = () => {
     return (
         <View>
-            <Text>Menu Screen</Text>
+            <Search />
         </View>
-    )
-}
+    );
+};
 
-export default Menu
+export default Menu;
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({});
