@@ -13,6 +13,7 @@ import {
     RecentJobItem,
     Search,
     TitleMore,
+    Header,
 } from '../../components';
 
 const Menu = () => {
@@ -57,9 +58,12 @@ const Menu = () => {
 
     return (
         <SafeAreaView style={styles.container}>
-            <ScrollView nestedScrollEnabled={true} showsVerticalScrollIndicator={false}>
-                <BlurBg />
-                <View style={styles.wrapperContent}>
+            <Header title='Menu' />
+            <View style={styles.wrapperContent}>
+                <ScrollView
+                    nestedScrollEnabled={true}
+                    showsVerticalScrollIndicator={false}>
+                    <BlurBg />
                     <Search />
                     <TitleMore title="Popular Job" more="See all" />
                     <FlatList
@@ -72,13 +76,11 @@ const Menu = () => {
                         keyExtractor={item => item.id}
                     />
                     <TitleMore title="Recent Job" more="See all" />
-                    {
-                        initData.map((e, i) => {
-                            return <RecentJobItem item={e} />
-                        })
-                    }
-                </View>
-            </ScrollView>
+                    {initData.map((e, i) => {
+                        return <RecentJobItem item={e} />;
+                    })}
+                </ScrollView>
+            </View>
         </SafeAreaView>
     );
 };
@@ -88,8 +90,8 @@ export default Menu;
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#fff',
-        marginBottom: 105
+        backgroundColor: '#ffffff',
+        marginBottom: 105,
     },
     wrapperContent: {
         flex: 1,

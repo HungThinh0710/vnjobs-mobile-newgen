@@ -12,6 +12,7 @@ const Stack = createStackNavigator();
 const HomeStackNavigator = () => {
     return <Stack.Navigator
         initialRouteName='Home'
+        headerMode='none'
     >
         <Stack.Screen name='Home' component={Home} />
     </Stack.Navigator>
@@ -20,6 +21,7 @@ const HomeStackNavigator = () => {
 const ApplyStackNavigator = () => {
     return <Stack.Navigator
         initialRouteName='Apply'
+        headerMode='none'
     >
         <Stack.Screen name='Apply' component={Apply} />
     </Stack.Navigator>
@@ -28,6 +30,7 @@ const ApplyStackNavigator = () => {
 const MenuStackNavigator = () => {
     return <Stack.Navigator
         initialRouteName='Menu'
+        headerMode='none'
     >
         <Stack.Screen name='Menu' component={Menu} />
     </Stack.Navigator>
@@ -36,6 +39,7 @@ const MenuStackNavigator = () => {
 const SettingStackNavigator = () => {
     return <Stack.Navigator
         initialRouteName='Setting'
+        headerMode='none'
     >
         <Stack.Screen name='Setting' component={Setting} />
     </Stack.Navigator>

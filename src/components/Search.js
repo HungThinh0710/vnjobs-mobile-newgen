@@ -57,6 +57,7 @@ export default Search;
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        zIndex: 2,
         minHeight: 120,
         maxHeight: 120,
     },

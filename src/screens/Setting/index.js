@@ -1,14 +1,20 @@
 import React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import { SafeAreaView, StyleSheet, Text, View } from 'react-native'
+import { Header } from '../../components'
 
 const Setting = () => {
     return (
-        <View>
-            <Text>Setting Screen</Text>
-        </View>
+        <SafeAreaView style={styles.container}>
+            <Header title='Settings' />
+        </SafeAreaView>
     )
 }
 
 export default Setting
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: '#ffffff'
+    }
+})
