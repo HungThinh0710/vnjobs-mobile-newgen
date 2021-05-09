@@ -72,14 +72,11 @@ const Menu = () => {
                         keyExtractor={item => item.id}
                     />
                     <TitleMore title="Recent Job" more="See all" />
-                    <FlatList
-                        style={styles.flatlistView}
-                        data={initData}
-                        renderItem={items => {
-                            return <RecentJobItem item={items.item} />;
-                        }}
-                        keyExtractor={item => item.id}
-                    />
+                    {
+                        initData.map((e, i) => {
+                            return <RecentJobItem item={e} />
+                        })
+                    }
                 </View>
             </ScrollView>
         </SafeAreaView>
@@ -92,6 +89,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#fff',
+        marginBottom: 105
     },
     wrapperContent: {
         flex: 1,
