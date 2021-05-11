@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, Image, View, Text} from 'react-native';
+import {StyleSheet, Image, View, Text, Platform} from 'react-native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {
     ApplyStackNavigator,
@@ -21,8 +21,8 @@ const Tab = createBottomTabNavigator();
 const shadow = {
     shadowColor: '#000',
     shadowOffset: {
-        width: -1,
-        height: -3,
+        width: Platform.OS === 'ios' ? -1 : 1,
+        height: Platform.OS === 'ios' ? -3 : 3,
     },
     shadowOpacity: 0.25,
     shadowRadius: Platform.OS === 'ios' ? 3.5 : 5,
@@ -48,7 +48,7 @@ const tabBarOptions = {
         ...shadow,
     },
     tabStyle: {
-        top: Platform.OS === 'ios' ? 20 : 5,
+        top: 29,
     },
 };
 
@@ -288,6 +288,6 @@ const styles = StyleSheet.create({
         fontSize: 10,
         color: '#3D7DFF',
         fontWeight: '500',
-        marginTop: 6
+        marginTop: 6,
     },
 });
