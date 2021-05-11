@@ -2,7 +2,7 @@ import React from 'react';
 import {StyleSheet, Text, TouchableOpacity, View, Image} from 'react-native';
 const defaultImage = require('../../assets/images/french.png');
 
-const PopularJobItem = ({item}) => {
+const PopularJobItem = ({item, onPress}) => {
     const bgColor = ['#6ECB96', '#6074F9', '#EA5F72'];
 
     const colorIndex = Math.round(0 + Math.random() * 2);
@@ -11,6 +11,7 @@ const PopularJobItem = ({item}) => {
     return (
         <View style={styles.container}>
             <TouchableOpacity
+                onPress={onPress}
                 activeOpacity={0.8}
                 style={[styles.button, {backgroundColor: backgroundColor}]}>
                 <View style={styles.viewTop}>
@@ -42,7 +43,12 @@ const PopularJobItem = ({item}) => {
                         {item.type.map((e, i) => {
                             return (
                                 <View style={styles.typeView}>
-                                    <Text style={[styles.textColor, styles.textType]} key={i}>
+                                    <Text
+                                        style={[
+                                            styles.textColor,
+                                            styles.textType,
+                                        ]}
+                                        key={i}>
                                         {e}
                                     </Text>
                                 </View>

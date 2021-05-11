@@ -9,12 +9,13 @@ import {
 } from 'react-native';
 const dafaultImage = require('../../assets/images/french.png');
 const windowWidth = Dimensions.get('window').width;
-const RecentJobItem = ({item}) => {
+const RecentJobItem = ({ key, item, onPress }) => {
     return (
-        <View style={styles.container}>
+        <View style={styles.container} key={key}>
             <TouchableOpacity
                 style={[styles.button, styles.shadow]}
-                activeOpacity={0.8}>
+                activeOpacity={0.8}
+                onPress={onPress}>
                 <View style={styles.imageView}>
                     <Image source={dafaultImage} style={styles.image} />
                 </View>
