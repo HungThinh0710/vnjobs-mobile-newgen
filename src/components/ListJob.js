@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { StyleSheet, View, Text, FlatList, SafeAreaView, Image } from 'react-native';
+import { StyleSheet, View, Text, FlatList, SafeAreaView, Image, ScrollView } from 'react-native';
+import Icon from 'react-native-vector-icons/AntDesign';
 
 const DATA_EXAMPLE = [
     { id: 1, job_name: 'Product Designer, Google Inc', company: 'Google inc', city: ', Singapore', major: 'Remote' },
@@ -24,16 +25,17 @@ const Item = ({ item }) => (
                 <Text style={styles.jobTitle}>{item.job_name}</Text>
                 <Text style={styles.companyName}>{item.company + item.city}</Text>
             </View>
-
+            <View style={styles.contentRight}>
+                <Text><Icon name="right" size={25} color="black" /></Text>
+            </View>
         </View>
         <View style={styles.majorForm}>
             <View>
                 <Text style={styles.majorTag}>Remote</Text>
 
             </View>
-            <View>
+            <View >
                 <Text style={styles.salary}>$1000</Text>
-
             </View>
         </View>
     </View>
@@ -61,25 +63,33 @@ const styles = StyleSheet.create({
         padding: 10,
         marginVertical: 8,
         marginHorizontal: 15,
-        borderRadius: 8
+        borderRadius: 8,
+        //Shadow
+        shadowColor: 'black',
+        shadowOpacity: 0.26,
+        shadowOffset: { width: 0, height: 3 },
+        shadowRadius: 10,
+        elevation: 6, //android
     },
     content: {
         flexDirection: 'row',
-
+        paddingVertical: 10,
     },
     contentLogo: {
-
+        paddingRight: 10
     },
     tinyLogo: {
         width: 50,
         height: 50,
     },
     contentMiddle: {
-
+        flex: 4,
+        // backgroundColor: 'lightgrey',
+        textAlignVertical: 'center'
     },
     jobTitle: {
         fontWeight: '800',
-        fontSize: 15
+        fontSize: 15,
     },
     companyName: {
         fontSize: 12,
@@ -87,6 +97,9 @@ const styles = StyleSheet.create({
         fontWeight: '100'
     },
     contentRight: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'flex-end'
 
     },
     majorForm: {
@@ -94,12 +107,17 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between'
     },
     majorTag: {
-        padding: 5,
+        paddingVertical: 5,
+        paddingHorizontal: 25,
         backgroundColor: '#E9F5FF',
-        color: ''
+        color: '#4CB2FF',
+        borderRadius: 2,
+        fontWeight: 'bold'
     },
     salary: {
-
+        paddingVertical: 5,
+        color: 'red',
+        fontWeight: 'bold'
     }
 });
 
