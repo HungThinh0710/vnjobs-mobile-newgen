@@ -1,6 +1,7 @@
 import React from 'react';
 import {
     FlatList,
+    Platform,
     SafeAreaView,
     ScrollView,
     StyleSheet,
@@ -58,7 +59,7 @@ const Menu = () => {
 
     return (
         <SafeAreaView style={styles.container}>
-            <Header title='Menu' />
+            <Header title="Menu" left right />
             <View style={styles.wrapperContent}>
                 <ScrollView
                     nestedScrollEnabled={true}
@@ -73,12 +74,14 @@ const Menu = () => {
                         renderItem={items => {
                             return <PopularJobItem item={items.item} />;
                         }}
+                        key={item => item.id}
                         keyExtractor={item => item.id}
                     />
                     <TitleMore title="Recent Job" more="See all" />
                     {initData.map((e, i) => {
-                        return <RecentJobItem item={e} />;
+                        return <RecentJobItem key={i} item={e} />;
                     })}
+                    <View style={styles.paddingBottomIOS}></View>
                 </ScrollView>
             </View>
         </SafeAreaView>
@@ -91,11 +94,12 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#ffffff',
-        marginBottom: 105,
+        paddingBottom: Platform.OS === 'android' ? 107 : 0,
     },
     wrapperContent: {
         flex: 1,
         zIndex: 2,
+        // marginBottom: 70
     },
     flatlistViewHorizontal: {
         maxHeight: 175,
@@ -107,4 +111,9 @@ const styles = StyleSheet.create({
         maxHeight: 320,
         height: 320,
     },
+    paddingBottomIOS: {
+        marginTop: Platform.OS === 'ios' ? 7 : 0,
+        height: Platform.OS === 'ios' ? 70 : 0,
+        backgroundColor: '#ffffff'
+    }
 });

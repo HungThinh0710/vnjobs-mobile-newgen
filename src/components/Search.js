@@ -17,6 +17,7 @@ const Search = ({placeholder = null, onPress}) => {
     const searchHandle = () => {
         Keyboard.dismiss;
         onPress;
+        console.log('Bam roi ne');
     };
 
     return (
@@ -24,22 +25,21 @@ const Search = ({placeholder = null, onPress}) => {
             <View style={[styles.container]}>
                 <View style={[styles.wrapperSearch]}>
                     <View style={[styles.searchContent]}>
-                        <TextInput
-                            style={[styles.inputSearch, styles.shadow]}
-                            placeholder={placeholder ? placeholder : 'Search'}
-                            onSubmitEditing={() => searchHandle()}
-                            autoCorrect={false}
-                            clearButtonMode="while-editing"
-                        />
                         <TouchableOpacity
                             onPress={() => searchHandle()}
-                            style={[styles.searchIconView]}
-                            accessible={false}>
+                            style={[styles.searchIconView]}>
                             <Image
                                 source={searchGlass}
                                 style={[styles.searchIcon]}
                             />
                         </TouchableOpacity>
+                        <TextInput
+                            style={[styles.inputSearch, styles.shadow]}
+                            placeholder={placeholder ? placeholder : 'Search'}
+                            onSubmitEditing={() => searchHandle()}
+                            // autoCorrect={false}
+                            clearButtonMode="while-editing"
+                        />
                     </View>
                     <TouchableOpacity
                         style={[styles.wrapperFilter, styles.shadowButton]}>
@@ -97,37 +97,44 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         backgroundColor: '#EDEDED',
         borderRadius: 16,
+        zIndex: 2,
     },
     searchIconView: {
         width: 25,
         height: 25,
+        minWidth: 25,
+        minHeight: 25,
         position: 'absolute',
         left: 13,
         top: 13,
+        zIndex: 20,
     },
     searchIcon: {
         width: 25,
         height: 25,
+        zIndex: 20,
     },
     filterBtn: {
         width: 30,
         height: 30,
     },
     shadowButton: {
-        shadowColor: 'rgba(234, 95, 114, 0.25)',
+        shadowColor: '#EA5F72',
         shadowOffset: {
             width: 0,
             height: 4,
         },
+        elevation: 4,
         shadowRadius: 5,
-        shadowOpacity: 0.79,
+        shadowOpacity: 0.25,
     },
     shadow: {
-        shadowColor: 'rgba(237, 237, 237, 0.79)',
+        shadowColor: '#ededed',
         shadowOffset: {
             width: 0,
-            height: 2,
+            height: 4,
         },
+        elevation: 4,
         shadowRadius: 5,
         shadowOpacity: 0.79,
     },
