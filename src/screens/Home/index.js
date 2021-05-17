@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { StyleSheet, Text, View, ScrollView, SafeAreaView } from 'react-native'
 import { Activity, ListJob, Header } from '../../components'
-import * as API from "../../api/Endpoint"
+import * as API from '../../api/Endpoints'
 import { LogBox } from 'react-native';
-
 const axios = require('axios');
 
 const Home = () => {
