@@ -4,10 +4,10 @@ import Icon from 'react-native-vector-icons/AntDesign';
 
 const DATA_EXAMPLE = [
     { id: 1, job_name: 'Product Designer, Google Inc', company: 'Google inc', city: ', Singapore', major: 'Remote' },
-    { id: 2, job_name: 'Product Designer, Google Inc', company: 'Google inc', city: ', Singapore', major: 'Remote' },
-    { id: 3, job_name: 'Product Designer, Google Inc', company: 'Google inc', city: ', Singapore', major: 'Remote' },
-    { id: 4, job_name: 'Product Designer, Google Inc', company: 'Google inc', city: ', Singapore', major: 'Remote' },
-    { id: 5, job_name: 'Product Designer, Google Inc', company: 'Google inc', city: ', Singapore', major: 'Remote' },
+    // { id: 2, job_name: 'Product Designer, Google Inc', company: 'Google inc', city: ', Singapore', major: 'Remote' },
+    // { id: 3, job_name: 'Product Designer, Google Inc', company: 'Google inc', city: ', Singapore', major: 'Remote' },
+    // { id: 4, job_name: 'Product Designer, Google Inc', company: 'Google inc', city: ', Singapore', major: 'Remote' },
+    // { id: 5, job_name: 'Product Designer, Google Inc', company: 'Google inc', city: ', Singapore', major: 'Remote' },
 ];
 
 const Item = ({ item }) => (
@@ -22,8 +22,9 @@ const Item = ({ item }) => (
                 />
             </View>
             <View style={styles.contentMiddle}>
-                <Text style={styles.jobTitle}>{item.job_name}</Text>
-                <Text style={styles.companyName}>{item.company + item.city}</Text>
+                {console.log(item.major.major_name)}
+                <Text style={styles.jobTitle}>{item.title}</Text>
+                <Text style={styles.companyName}>{`${item.major.major_name}, ${item.city}`}</Text>
             </View>
             <View style={styles.contentRight}>
                 <Text><Icon name="right" size={25} color="black" /></Text>
@@ -31,28 +32,33 @@ const Item = ({ item }) => (
         </View>
         <View style={styles.majorForm}>
             <View>
-                <Text style={styles.majorTag}>Remote</Text>
+                <Text style={styles.majorTag}>{item.work_type}</Text>
 
             </View>
             <View >
-                <Text style={styles.salary}>$1000</Text>
+                <Text style={styles.salary}>Thoả thuận</Text>
             </View>
         </View>
     </View>
 );
 
-const ListJob = () => {
+const ListJob = (props) => {
+    const data = props;
+    console.log(data.data);
     const renderItem = ({ item }) => (
 
         <Item item={item} />
     );
     return (
         <SafeAreaView style={styles.container}>
-            <FlatList
-                data={DATA_EXAMPLE}
-                renderItem={renderItem}
-                keyExtractor={item => item.id}
-            />
+            <View>
+                <FlatList
+                    nestedScrollEnabled={true}
+                    data={data.data}
+                    renderItem={renderItem}
+                    keyExtractor={item => item.id}
+                />
+            </View>
         </SafeAreaView>
     )
 }
@@ -62,7 +68,7 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
         padding: 10,
         marginVertical: 8,
-        marginHorizontal: 15,
+        marginHorizontal: 3,
         borderRadius: 8,
         //Shadow
         shadowColor: 'black',
@@ -92,9 +98,9 @@ const styles = StyleSheet.create({
         fontSize: 15,
     },
     companyName: {
-        fontSize: 12,
-        color: 'red',
-        fontWeight: '100'
+        fontSize: 13,
+        color: '#FF7C7F',
+        fontWeight: 'bold'
     },
     contentRight: {
         flex: 1,
@@ -116,7 +122,7 @@ const styles = StyleSheet.create({
     },
     salary: {
         paddingVertical: 5,
-        color: 'red',
+        color: '#FE5A5D',
         fontWeight: 'bold'
     }
 });
