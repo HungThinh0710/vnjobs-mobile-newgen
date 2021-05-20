@@ -6,5 +6,18 @@ import RecentJobItem from './RecentJobItem';
 import Header from './Header';
 import Activity from './Activity';
 import ListJob from './ListJob';
+import SettingButton from './SettingButton';
+import ConfigButton from './ConfigButton';
 
-export { Search, TitleMore, BlurBg, PopularJobItem, RecentJobItem, Header, Activity, ListJob };
+export {
+    Search,
+    TitleMore,
+    BlurBg,
+    PopularJobItem,
+    RecentJobItem,
+    Header,
+    Activity,
+    ListJob,
+    SettingButton,
+    ConfigButton
+};

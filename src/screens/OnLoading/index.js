@@ -3,7 +3,7 @@ import { StyleSheet, Text, View } from 'react-native'
 
 const OnLoading = () => {
     return (
-        <View>
+        <View style={styles.container}>
             <Text>Loading Screen</Text>
         </View>
     )
@@ -11,4 +11,10 @@ const OnLoading = () => {
 
 export default OnLoading
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center'
+    }
+})
