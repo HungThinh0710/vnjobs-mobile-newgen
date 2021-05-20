@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {
     StyleSheet,
     Text,
@@ -6,12 +6,43 @@ import {
     View,
     Image,
     Dimensions,
+    LogBox
 } from 'react-native';
+import * as API from '../api/Endpoints';
+const axios = require('axios');
 const dafaultImage = require('../../assets/images/french.png');
 const windowWidth = Dimensions.get('window').width;
-const RecentJobItem = ({ key, item, onPress }) => {
+const RecentJobItem = ({item, onPress}) => {
+    const [salary, setSalary] = useState('');
+    const [lefttime, setLefttime] = useState('');
+    useEffect(() => {
+        LogBox.ignoreLogs(['Clean Up useEffect']);
+        const convertDate = t => {
+            var t = t.split(/[- :]/);
+            var d = new Date(Date.UTC(t[0], t[1] - 1, t[2], t[3], t[4], t[5]));
+            return d.toLocaleDateString();
+        };
+
+        const getDiffDate = (date1, date2) => {
+            const diffTime = Math.abs(date2 - date1);
+            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+            return diffDays;
+        };
+
+        const d = new Date();
+        const currentDate = d.toLocaleDateString();
+        const interviewTime = convertDate(item.interview_start_time);
+
+        setLefttime(
+            getDiffDate(new Date(currentDate), new Date(interviewTime)) +
+                ' days left',
+        );
+        const numberSalary = Math.round(1 + Math.random() * 50);
+        setSalary(numberSalary + 'K/year');
+    }, []);
+
     return (
-        <View style={styles.container} key={key}>
+        <View style={styles.container}>
             <TouchableOpacity
                 style={[styles.button, styles.shadow]}
                 activeOpacity={0.8}
@@ -20,24 +51,20 @@ const RecentJobItem = ({ key, item, onPress }) => {
                     <Image source={dafaultImage} style={styles.image} />
                 </View>
                 <View style={styles.contentView}>
-                    <Text style={styles.textJob}>{item.job}</Text>
+                    <Text style={styles.textJob}>{item.title}</Text>
                     <Text style={styles.textName}>
-                        {item.name} | {item.salary}
+                        {item.city} | {salary}
                     </Text>
                     <View style={styles.typeJob}>
-                        {item.type.map((e, i) => {
-                            return (
-                                <View style={styles.typeView}>
-                                    <Text style={[styles.textType]} key={i}>
-                                        {e}
-                                    </Text>
-                                </View>
-                            );
-                        })}
+                        <View style={styles.typeView}>
+                            <Text style={[styles.textType]}>
+                                {item.major.major_name}
+                            </Text>
+                        </View>
                     </View>
                 </View>
                 <View style={styles.lefttimeView}>
-                    <Text style={styles.lefttimeText}>{item.lefttime}</Text>
+                    <Text style={styles.lefttimeText}>{lefttime}</Text>
                 </View>
             </TouchableOpacity>
         </View>

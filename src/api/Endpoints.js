@@ -1,4 +1,4 @@
-const DOMAIN = 'http://api.vnjobs.tk';
+const DOMAIN = 'https://api.vnjobs.tk';
 // const DOMAIN = 'http://127.0.0.1:8000' // Localhost Only | NOT USING FOR PRODUCTION !!
 // const DOMAIN = 'https://8383d1798767.ngrok.io'
 const VERSION_API = '/api/v1/';

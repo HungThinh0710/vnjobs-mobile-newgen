@@ -1,3 +1,4 @@
+import {CheckBox} from 'native-base';
 import React from 'react';
 import {
     StyleSheet,
@@ -13,20 +14,14 @@ import {
 const searchGlass = require('../../assets/images/001-magnifying-glass.png');
 const filterIcon = require('../../assets/images/icons8-adjust.png');
 
-const Search = ({placeholder = null, onPress}) => {
-    const searchHandle = () => {
-        Keyboard.dismiss;
-        onPress;
-        console.log('Bam roi ne');
-    };
-
+const Search = ({placeholder = null, onPress, filterOnpress, onChangeText, children}) => {
     return (
         <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
             <View style={[styles.container]}>
                 <View style={[styles.wrapperSearch]}>
                     <View style={[styles.searchContent]}>
                         <TouchableOpacity
-                            onPress={() => searchHandle()}
+                            onPress={onPress}
                             style={[styles.searchIconView]}>
                             <Image
                                 source={searchGlass}
@@ -36,17 +31,19 @@ const Search = ({placeholder = null, onPress}) => {
                         <TextInput
                             style={[styles.inputSearch, styles.shadow]}
                             placeholder={placeholder ? placeholder : 'Search'}
-                            onSubmitEditing={() => searchHandle()}
+                            onSubmitEditing={onPress}
+                            onChangeText={onChangeText}
                             // autoCorrect={false}
                             clearButtonMode="while-editing"
                         />
                     </View>
                     <TouchableOpacity
-                        style={[styles.wrapperFilter, styles.shadowButton]}>
+                        style={[styles.wrapperFilter, styles.shadowButton]}
+                        onPress={filterOnpress}>
                         <Image source={filterIcon} style={[styles.filterBtn]} />
                     </TouchableOpacity>
                 </View>
-                <View style={styles.wrapperTab}></View>
+                {children}
             </View>
         </TouchableWithoutFeedback>
     );
@@ -138,12 +135,5 @@ const styles = StyleSheet.create({
         shadowRadius: 5,
         shadowOpacity: 0.79,
     },
-    wrapperTab: {
-        flex: 1,
-        flexDirection: 'row',
-        alignItems: 'center',
-        minHeight: 50,
-        height: 50,
-        marginHorizontal: 10,
-    },
+    
 });

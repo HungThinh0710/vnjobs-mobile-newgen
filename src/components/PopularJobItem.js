@@ -1,13 +1,60 @@
-import React from 'react';
-import {StyleSheet, Text, TouchableOpacity, View, Image} from 'react-native';
+import React, {useState, useEffect} from 'react';
+import {
+    StyleSheet,
+    Text,
+    TouchableOpacity,
+    View,
+    Image,
+    LogBox,
+} from 'react-native';
+import * as API from '../api/Endpoints';
+const axios = require('axios');
 const defaultImage = require('../../assets/images/french.png');
 
 const PopularJobItem = ({item, onPress}) => {
     const bgColor = ['#6ECB96', '#6074F9', '#EA5F72'];
+    const [lefttime, setLefttime] = useState('');
+    const [organizationName, setOrganizationName] = useState('');
+    const [salary, setSalary] = useState('');
 
-    const colorIndex = Math.round(0 + Math.random() * 2);
+    useEffect(() => {
+        LogBox.ignoreLogs(['Clean Up useEffect']);
+        const convertDate = t => {
+            var t = t.split(/[- :]/);
+            var d = new Date(Date.UTC(t[0], t[1] - 1, t[2], t[3], t[4], t[5]));
+            return d.toLocaleDateString();
+        };
+
+        const getDiffDate = (date1, date2) => {
+            const diffTime = Math.abs(date2 - date1);
+            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+            return diffDays;
+        };
+
+        const d = new Date();
+        const currentDate = d.toLocaleDateString();
+        const interviewTime = convertDate(item.interview_start_time);
+
+        setLefttime(
+            getDiffDate(new Date(currentDate), new Date(interviewTime)) +
+                ' days left',
+        );
+        const numberSalary = Math.round(1 + Math.random() * 50);
+        setSalary(numberSalary + 'K/year');
+        async function getOrganzation() {
+            const response = await axios.get(
+                API.LIST_ORGANIZATION + '/' + item.org_id,
+            );
+            setOrganizationName(
+                response.data.org_name.substring(8, 17) + '...',
+            );
+        }
+
+        getOrganzation();
+    }, []);
+
+    const colorIndex = item.id % 2 === 0 ? 1 : item.id % 3 === 0 ? 2 : 0;
     const backgroundColor = bgColor[colorIndex];
-    console.log(backgroundColor);
     return (
         <View style={styles.container}>
             <TouchableOpacity
@@ -23,40 +70,31 @@ const PopularJobItem = ({item, onPress}) => {
                     </View>
                     <View style={styles.companyDetailView}>
                         <Text style={[styles.textColor, styles.companyName]}>
-                            {item.name}
+                            {organizationName}
                         </Text>
                         <Text style={[styles.textColor, styles.companyAddress]}>
-                            {item.address}
+                            {item.city}
                         </Text>
                     </View>
                 </View>
                 <View style={styles.viewMiddle}>
                     <Text style={[styles.textColor, styles.textJob]}>
-                        {item.job}
+                        {item.title}
                     </Text>
                     <Text style={[styles.textColor, styles.textSalary]}>
-                        {item.salary}
+                        {salary}
                     </Text>
                 </View>
                 <View style={styles.viewBottom}>
                     <View style={styles.typeJob}>
-                        {item.type.map((e, i) => {
-                            return (
-                                <View style={styles.typeView}>
-                                    <Text
-                                        style={[
-                                            styles.textColor,
-                                            styles.textType,
-                                        ]}
-                                        key={i}>
-                                        {e}
-                                    </Text>
-                                </View>
-                            );
-                        })}
+                        <View style={styles.typeView}>
+                            <Text style={[styles.textColor, styles.textType]}>
+                                {item.major.major_name}
+                            </Text>
+                        </View>
                     </View>
                     <Text style={[styles.textColor, styles.textLefttime]}>
-                        {item.lefttime}
+                        {lefttime}
                     </Text>
                 </View>
             </TouchableOpacity>
@@ -97,6 +135,7 @@ const styles = StyleSheet.create({
     },
     companyDetailView: {
         paddingStart: 6,
+        paddingEnd: 6,
         justifyContent: 'center',
     },
     companyName: {
