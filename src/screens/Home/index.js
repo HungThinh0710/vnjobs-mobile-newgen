@@ -14,7 +14,7 @@ const Home = () => {
         LogBox.ignoreLogs(['VirtualizedLists should never be nested']);
         async function getListJobs() {
             const response = await axios.get(API.LIST_RECRUITMENT_NEWS);
-            console.log(response.status);
+            // console.log(response.status);
             // const dataResponse = response.data.data;
             setListJobs(response.data.data);
         }
@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         marginBottom: 112,
-        marginHorizontal: 10
+        // marginHorizontal: 10
     },
     title: {
         paddingTop: 5,
@@ -56,6 +56,6 @@ const styles = StyleSheet.create({
     wrapperContent: {
         flex: 1,
         zIndex: 2,
-        // marginHorizontal: 10,
+        marginHorizontal: 10,
     },
 })
