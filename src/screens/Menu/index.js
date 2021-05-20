@@ -272,38 +272,51 @@ const Menu = () => {
 
     const searchHandle = () => {
         Keyboard.dismiss();
-        const params = filter.city && filter.title && filter.work_type ? {
-            city: search,
-            title: search,
-            work_type: search
-        } : filter.city && filter.title && !filter.work_type ? {
-            city: search,
-            title: search
-        } : filter.city && !filter.title && !filter.work_type ? {
-            city: search
-        } : filter.city && !filter.title && filter.work_type ? {
-            city: search,
-            work_type: search
-        } : !filter.city && filter.title && filter.work_type ? {
-            title: search,
-            work_type: search
-        } : !filter.city && !filter.title && filter.work_type ? {
-            work_type: search
-        } : !filter.city && filter.title && !filter.work_type ? {
-            title: search
-        } : {
-            city: search
-        }
+        const params =
+            filter.city && filter.title && filter.work_type
+                ? {
+                      city: search,
+                      title: search,
+                      work_type: search,
+                  }
+                : filter.city && filter.title && !filter.work_type
+                ? {
+                      city: search,
+                      title: search,
+                  }
+                : filter.city && !filter.title && !filter.work_type
+                ? {
+                      city: search,
+                  }
+                : filter.city && !filter.title && filter.work_type
+                ? {
+                      city: search,
+                      work_type: search,
+                  }
+                : !filter.city && filter.title && filter.work_type
+                ? {
+                      title: search,
+                      work_type: search,
+                  }
+                : !filter.city && !filter.title && filter.work_type
+                ? {
+                      work_type: search,
+                  }
+                : !filter.city && filter.title && !filter.work_type
+                ? {
+                      title: search,
+                  }
+                : {
+                      city: search,
+                  };
         setIsLoading(true);
         if (search !== '') setIsSearch(true);
         else setIsSearch(false);
-        axios
-            .post(API.SEARCH, params)
-            .then(response => {
-                if (response.status === 200) {
-                    console.log(response.data);
-                }
-            });
+        axios.post(API.SEARCH, params).then(response => {
+            if (response.status === 200) {
+                console.log(response.data);
+            }
+        });
 
         wait(1200).then(() => setIsLoading(false));
     };
@@ -311,46 +324,59 @@ const Menu = () => {
     const onSearchTextChange = text => {
         setIsLoading(true);
         setSearch(text);
-        const params = filter.city && filter.title && filter.work_type ? {
-            city: search,
-            title: search,
-            work_type: search
-        } : filter.city && filter.title && !filter.work_type ? {
-            city: search,
-            title: search
-        } : filter.city && !filter.title && !filter.work_type ? {
-            city: search
-        } : filter.city && !filter.title && filter.work_type ? {
-            city: search,
-            work_type: search
-        } : !filter.city && filter.title && filter.work_type ? {
-            title: search,
-            work_type: search
-        } : !filter.city && !filter.title && filter.work_type ? {
-            work_type: search
-        } : !filter.city && filter.title && !filter.work_type ? {
-            title: search
-        } : {
-            city: search
-        }
+        const params =
+            filter.city && filter.title && filter.work_type
+                ? {
+                      city: search,
+                      title: search,
+                      work_type: search,
+                  }
+                : filter.city && filter.title && !filter.work_type
+                ? {
+                      city: search,
+                      title: search,
+                  }
+                : filter.city && !filter.title && !filter.work_type
+                ? {
+                      city: search,
+                  }
+                : filter.city && !filter.title && filter.work_type
+                ? {
+                      city: search,
+                      work_type: search,
+                  }
+                : !filter.city && filter.title && filter.work_type
+                ? {
+                      title: search,
+                      work_type: search,
+                  }
+                : !filter.city && !filter.title && filter.work_type
+                ? {
+                      work_type: search,
+                  }
+                : !filter.city && filter.title && !filter.work_type
+                ? {
+                      title: search,
+                  }
+                : {
+                      city: search,
+                  };
         if (text !== '') setIsSearch(true);
         else setIsSearch(false);
-        axios
-            .post(API.SEARCH, params)
-            .then(response => {
-                if (response.status === 200) {
-                    console.log(response.data);
-                    setSearchPost(response.data.data);
-                }
-            });
+        axios.post(API.SEARCH, params).then(response => {
+            if (response.status === 200) {
+                console.log(response.data);
+                setSearchPost(response.data.data);
+            }
+        });
 
         wait(1200).then(() => setIsLoading(false));
     };
 
     const ShowEmpty = () => {
         return (
-            <View>
-                <Text>Not found any item</Text>
+            <View style={styles.emptyContainer}>
+                <Text style={styles.textEmpty}>Not found any items.</Text>
             </View>
         );
     };
@@ -377,11 +403,13 @@ const Menu = () => {
                 <View style={{flexDirection: 'row', alignItems: 'center'}}>
                     <CheckBox
                         checked={filter.title}
-                        onPress={() => setFilter({
-                            city: filter.city,
-                            title: !filter.title,
-                            work_type: filter.work_type,
-                        })}
+                        onPress={() =>
+                            setFilter({
+                                city: filter.city,
+                                title: !filter.title,
+                                work_type: filter.work_type,
+                            })
+                        }
                         color="#666666"
                         style={{marginEnd: 15}}
                     />
@@ -408,12 +436,7 @@ const Menu = () => {
 
     return (
         <SafeAreaView style={styles.container}>
-            <Header
-                title="Menu"
-                left
-                right
-                onPressRight={() => onPopupHandle()}
-            />
+            <Header title="Menu" right onPressRight={() => onPopupHandle()} />
 
             <View style={styles.wrapperContent}>
                 <ScrollView
@@ -694,5 +717,16 @@ const styles = StyleSheet.create({
         minHeight: 50,
         height: 50,
         marginHorizontal: 10,
+    },
+    emptyContainer: {
+        marginHorizontal: 10,
+        marginVertical: 10,
+        height: 60,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    textEmpty: {
+        fontSize: 14,
+        fontWeight: '600',
     },
 });
