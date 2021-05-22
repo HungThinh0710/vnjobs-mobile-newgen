@@ -6,5 +6,6 @@ import RecentJobItem from './RecentJobItem';
 import Header from './Header';
 import Activity from './Activity';
 import ListJob from './ListJob';
+import TextInputWithIcon from './TextInputWithIcon';
 
-export { Search, TitleMore, BlurBg, PopularJobItem, RecentJobItem, Header, Activity, ListJob };
+export { Search, TitleMore, BlurBg, PopularJobItem, RecentJobItem, Header, Activity, ListJob, TextInputWithIcon };

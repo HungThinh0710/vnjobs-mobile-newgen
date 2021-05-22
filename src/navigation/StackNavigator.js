@@ -48,6 +48,7 @@ const SettingStackNavigator = () => {
 const LoginStackNavigator = () => {
     return <Stack.Navigator
         initialRouteName='Login'
+        headerMode="none"
     >
         <Stack.Screen name='Login' component={Login} />
         <Stack.Screen name='Register' component={Register} />
