@@ -20,8 +20,8 @@ const Login = () => {
                     </View>
                     <Text style={styles.title}>Sign in with your account</Text>
                     <View style={styles.wrapContent}>
-                        <TextInputWithIcon />
-                        <TextInputWithIcon />
+                        <TextInputWithIcon icon nameIcon='user' typeIcon='font-awesome-5' sizeIcon={35} colorIcon='#666666' />
+                        <TextInputWithIcon icon nameIcon='lock' typeIcon='font-awesome-5' sizeIcon={35} colorIcon='#666666' secureTextEntry={true} />
                         <View style={styles.loginWrapper}>
                             <Text style={{ paddingRight: 10, fontWeight: 'bold', fontSize: 18 }}>Signin</Text>
                             <TouchableOpacity style={styles.loginButton}>
