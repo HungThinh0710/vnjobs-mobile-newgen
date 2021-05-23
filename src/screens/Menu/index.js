@@ -143,6 +143,7 @@ const Menu = () => {
 
     const getListJobByFilter = majorName => {
         axios.get(API.LIST_RECRUITMENT_NEWS_SORT_BY_MAJOR).then(response => {
+            console.log(response, majorName);
             if (response.status === 200) {
                 if (response.data) {
                     response.data.forEach(e => {
@@ -396,7 +397,7 @@ const Menu = () => {
                             })
                         }
                         color="#666666"
-                        style={{marginEnd: 15}}
+                        style={{marginEnd: 15, paddingBottom: 2, borderRadius: 20}}
                     />
                     <Text>City</Text>
                 </View>
@@ -411,7 +412,7 @@ const Menu = () => {
                             })
                         }
                         color="#666666"
-                        style={{marginEnd: 15}}
+                        style={{marginEnd: 15, paddingBottom: 2, borderRadius: 20}}
                     />
                     <Text>Title</Text>
                 </View>
@@ -426,7 +427,7 @@ const Menu = () => {
                             })
                         }
                         color="#666666"
-                        style={{marginEnd: 15}}
+                        style={{marginEnd: 15, paddingBottom: 2, borderRadius: 20}}
                     />
                     <Text>Type</Text>
                 </View>
@@ -695,7 +696,7 @@ const styles = StyleSheet.create({
     },
     filterButton: {
         backgroundColor: '#f9f9f9',
-        height: 40,
+        height: 42,
         justifyContent: 'space-between',
         paddingVertical: 10,
         paddingStart: 5,
@@ -709,7 +710,8 @@ const styles = StyleSheet.create({
         fontWeight: '600',
         color: '#666666',
     },
-    radioFilter: {},
+    radioFilter: {
+    },
     wrapperTab: {
         flex: 1,
         flexDirection: 'row',

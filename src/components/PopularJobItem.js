@@ -26,21 +26,24 @@ const PopularJobItem = ({item, onPress}) => {
         };
 
         const getDiffDate = (date1, date2) => {
-            const diffTime = Math.abs(date2 - date1);
+            const diffTime = date2 - date1;
             const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
             return diffDays;
         };
 
         const d = new Date();
         const currentDate = d.toLocaleDateString();
-        const interviewTime = convertDate(item.interview_start_time);
-
+        const interviewTime = convertDate(item.end_time);
+        const ld = getDiffDate(new Date(currentDate), new Date(interviewTime));
         setLefttime(
-            getDiffDate(new Date(currentDate), new Date(interviewTime)) +
-                ' days left',
+            ld > 1
+                ? ld + ' days left'
+                : ld === 1
+                ? ld + ' day left'
+                : 'Expired',
         );
         const numberSalary = Math.round(1 + Math.random() * 50);
-        setSalary(numberSalary + 'K/year');
+        setSalary('Thoả thuận');
         async function getOrganzation() {
             const response = await axios.get(
                 API.LIST_ORGANIZATION + '/' + item.org_id,
@@ -93,7 +96,12 @@ const PopularJobItem = ({item, onPress}) => {
                             </Text>
                         </View>
                     </View>
-                    <Text style={[styles.textColor, styles.textLefttime]}>
+                    <Text
+                        style={[
+                            styles.textColor,
+                            styles.textLefttime,
+                            lefttime === 'Expired' ? {color: 'red'} : null,
+                        ]}>
                         {lefttime}
                     </Text>
                 </View>
