@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import {
     StyleSheet,
     View,
@@ -8,18 +8,19 @@ import {
     Image,
     TextInput,
 } from 'react-native';
-import {Icon} from 'react-native-elements';
+import { Icon } from 'react-native-elements';
 
 const TextInputWithIcon = props => {
     const data = props;
-    const [text, onChangeText] = React.useState('Useless Text');
+    // const [text, onChangeText] = React.useState('Useless Text');
 
     return (
         <SafeAreaView style={styles.container}>
             <TextInput
-                style={[styles.input, data.icon ? {paddingLeft: 55} : null]}
-                onChangeText={onChangeText}
-                value={text}
+                style={[styles.input, data.icon ? { paddingLeft: 55 } : null]}
+                onChangeText={data.onChangeText}
+                // value={''}
+                placeholder={data.placeholder}
                 secureTextEntry={data.secureTextEntry}
             />
 
@@ -50,7 +51,7 @@ const styles = StyleSheet.create({
         borderRadius: 30,
         borderWidth: 1,
         borderColor: '#E7E7E7',
-        fontSize: 20,
+        fontSize: 18,
         paddingHorizontal: 16,
     },
     iconWrapper: {
@@ -60,6 +61,7 @@ const styles = StyleSheet.create({
         zIndex: 10,
         width: 35,
         height: 35,
+        justifyContent: 'center'
     },
     icon: {
     },
