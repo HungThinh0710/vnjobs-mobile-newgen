@@ -8,6 +8,8 @@ import Activity from './Activity';
 import ListJob from './ListJob';
 import SettingButton from './SettingButton';
 import ConfigButton from './ConfigButton';
+import TextInputWithIcon from './TextInputWithIcon';
+import Loading from './Loading';
 
 export {
     Search,
@@ -19,5 +21,7 @@ export {
     Activity,
     ListJob,
     SettingButton,
-    ConfigButton
+    ConfigButton,
+    TextInputWithIcon, 
+    Loading
 };

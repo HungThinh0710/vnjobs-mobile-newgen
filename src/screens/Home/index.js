@@ -23,19 +23,22 @@ const Home = () => {
     }, [])
 
     return (
-        <SafeAreaView style={styles.container}>
-            <Header title='Home' />
-            <ScrollView
-                scrollEnabled={true}
-                style={styles.wrapperContent}>
-                <View>
-                    <Text style={styles.title}>Activities</Text>
-                    <Activity />
-                    <Text style={styles.title}>Suggested Jobs</Text>
-                    <ListJob data={listJobs} />
-                </View>
+        <SafeAreaView style={{ backgroundColor: 'white', flex: 1 }}>
+            <View style={styles.container}>
+                <Header title='Home' />
+                <ScrollView
+                    scrollEnabled={true}
+                    style={styles.wrapperContent}>
+                    <View>
+                        <Text style={styles.title}>Activities</Text>
+                        <Activity />
+                        <Text style={styles.title}>Suggested Jobs</Text>
+                        <ListJob data={listJobs} />
+                    </View>
 
-            </ScrollView>
+                </ScrollView>
+
+            </View>
         </SafeAreaView>
     )
 }
@@ -46,6 +49,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         marginBottom: 112,
+        backgroundColor: 'white',
         // marginHorizontal: 10
     },
     title: {

@@ -8,6 +8,8 @@ const axios = require("axios");
 import * as API from '../../api/Endpoints'
 import { LogBox } from 'react-native';
 import SkeletonPlaceholder from "react-native-skeleton-placeholder";
+const AS = require('../../utilities/AsyncStorageHandler');
+import LottieView from 'lottie-react-native';
 
 const styles = StyleSheet.create({
     container: {
@@ -122,6 +124,10 @@ const styles = StyleSheet.create({
         width: 65,
         height: 65,
     },
+    anim: {
+        height: 220,
+        alignSelf: 'center'
+    }
 })
 
 const defaultStructView = [{ "id": 1 }, { "id": 2 }, { "id": 3 }];
@@ -165,7 +171,16 @@ const showUnavailable = () => (
 
 const showEmptyApplied = () => (
     <View style={styles.context}>
-        <Text style={styles.unavailableText}><IconAntDesign name="inbox" size={100} color="#3D7DFF" /></Text>
+        {/* <Text style={styles.unavailableText}><IconAntDesign name="inbox" size={100} color="#3D7DFF" /></Text> */}
+        <LottieView
+            style={styles.anim}
+            // resizeMode='cover'
+            // autoSize
+            // aspectRatio={2}
+            // width={300}
+            // height={300}
+            // alignItems="center"
+            source={require('../../../assets/lottie/not-found.json')} speed={1} autoPlay loop />
         <Text style={styles.unavailableText}>You have not apply any job.</Text>
     </View>
 );
@@ -235,37 +250,50 @@ const showPlaceholderLoadingForList = () => (
 
 );
 
-const Apply = () => {
-    const isLogged = true;
+const Apply = ({ navigation }) => {
+
+    const [isLogged, setIsLogged] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
     const [payload, setPayload] = useState([]);
 
     useEffect(() => {
-        async function getAppliedJobs() {
-            try {
-                const payload = await axios.get(API.LIST_APPLIED_JOBS, {
-                    headers: {
-                        Accept: 'application/json',
-                        'Content-Type': 'application/json; charset=utf-8',
-                        Authorization: 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiOGI2ZjZiYWIyZWNjYTc0YTZkYWY0YWMyZWM2ZGNiNzJjZWE0ZmNiMzFiZWIyNWJiYWExNWYyZTY3MDI1ZjI5OWIyODViMDQwYjEwZDQ2Y2MiLCJpYXQiOjE2MjEzMzI0OTUsIm5iZiI6MTYyMTMzMjQ5NSwiZXhwIjoxNjUyODY4NDk1LCJzdWIiOiIxIiwic2NvcGVzIjpbXX0.UEneV665RDw7JH_TPikZoXQiGGxHUAahHr3SbSwCncVk9WnxFL0_bXynrWXLwqIRnZkgHgHw-8B_fmxE-elJwJFc8c0EjaT75Is_2s2EQjS285uAYLQ094FMnnOD_buVfrot8TnOKCDur1I_ve2jMawc68bzCTu120V9jSelfJGFnaIIu--EeLSdJ0IxHzDM1IY9xuapUHWgYuFJ9L1jmzN8RKPNkB6KStoTn--GyGM4pRKr6jqfExJ62MlRUhWHdZTCoWM-RNdrulws7hL3GoFdQxEibi4uL10X35owlmWBVrBiABreHRlEqv31NLQ99PoK0VpReplQbzJwN87YelENYpI2IH_f6XZlVz8qNUoJHOiZP7PNOjdT2EmivSHx27tXws5so-0rDMR4-oRVrBA93BzyUBOpIe0BLT4XnnABeZicTmLMX61EcqQ16QXkjoGZsVMHVK4EEUnfH8bmQUzF-4NIt_oGux3_Hs74xK6ziUCfv9OnMptmlQWr9uhH1RxuclB6BpztFwu8sy24wI3YNncXB24f6avBB7yYTRvY7lZ_lzwBDjtYFbzIXwwNAinZyaovLQYk-HDk-7ZkWuwX3vWAxyom_jH0Lz3jd4m0X6IzH_6i3-T2uQNCUy7UU8hqXPx1nlr3YxIgelGynWjBeFYeUqwJG5Dc0f19lxI'
+        const unsubscribe = navigation.addListener('focus', () => {
+            async function getAppliedJobs(accessToken) {
+                try {
+                    const payload = await axios.get(API.LIST_APPLIED_JOBS, {
+                        headers: {
+                            Accept: 'application/json',
+                            'Content-Type': 'application/json; charset=utf-8',
+                            Authorization: `Bearer ${accessToken}`
+                        }
+                    });
+                    console.log("Axios STT Code: " + payload.status);
+                    if (payload.status == 200) {
+                        setIsLoading(false)
+                        // console.log("Payload length: " + payload.data.length);
+                        // if (payload.data.length <= 0) {
+                        //     console.log("Ban chua applied cai nào");
+                        // }
+                        setPayload(payload.data);
                     }
-                });
-                console.log("Axios STT Code: " + payload.status);
-                if (payload.status == 200) {
-                    setIsLoading(false)
-                    // console.log("Payload length: " + payload.data.length);
-                    // if (payload.data.length <= 0) {
-                    //     console.log("Ban chua applied cai nào");
-                    // }
-                    setPayload(payload.data);
+                } catch (error) {
+                    console.error(error);
                 }
-            } catch (error) {
-                console.error(error);
+
             }
 
-        }
-        setIsLoading(true)
-        getAppliedJobs()
+            async function checkIsLogged() {
+                const accessToken = await AS.getAccessToken();
+                if (typeof (accessToken) != 'undefined' || accessToken !== null) {
+                    setIsLogged(true)
+                    getAppliedJobs(accessToken)
+                }
+            }
+            setIsLoading(true)
+            checkIsLogged();
+
+        });
+        return unsubscribe;
     }, []);
 
     if (isLogged) {
