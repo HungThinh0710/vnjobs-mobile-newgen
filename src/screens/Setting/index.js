@@ -1,15 +1,17 @@
 import React from 'react';
-import {SafeAreaView, StyleSheet, Text, View, ScrollView} from 'react-native';
-import {ConfigButton, Header, SettingButton} from '../../components';
-import {Icon} from 'react-native-elements';
+import { SafeAreaView, StyleSheet, Text, View, ScrollView } from 'react-native';
+import { ConfigButton, Header, SettingButton } from '../../components';
+import { Icon } from 'react-native-elements';
 
-const Setting = () => {
+const Setting = ({ navigation }) => {
     return (
         <SafeAreaView style={styles.container}>
             <Header title="Settings" />
             <View style={styles.wrapperContent}>
                 <ScrollView>
-                    <SettingButton />
+                    <SettingButton onPress={() => {
+                        navigation.navigate("Profile");
+                    }} />
                     <SettingButton
                         title="Notification"
                         left={
@@ -27,8 +29,8 @@ const Setting = () => {
                     <View style={styles.wrapperConfig}>
                         <ConfigButton />
                         <ConfigButton
-                            style={{backgroundColor: '#efefef'}}
-                            textColor={{color: '#000'}}
+                            style={{ backgroundColor: '#efefef' }}
+                            textColor={{ color: '#000' }}
                             value={false}
                             title='Photos'
                             subTitle=''

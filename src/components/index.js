@@ -10,6 +10,7 @@ import SettingButton from './SettingButton';
 import ConfigButton from './ConfigButton';
 import TextInputWithIcon from './TextInputWithIcon';
 import Loading from './Loading';
+import BlueBg from './BlueBg';
 
 export {
     Search,
@@ -22,6 +23,7 @@ export {
     ListJob,
     SettingButton,
     ConfigButton,
-    TextInputWithIcon, 
-    Loading
+    TextInputWithIcon,
+    Loading,
+    BlueBg,
 };

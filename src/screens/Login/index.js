@@ -7,7 +7,7 @@ const axios = require('axios');
 import * as API from '../../api/Endpoints'
 const AS = require('../../utilities/AsyncStorageHandler');
 
-const imageBG = require('../../../assets/backgrounds/bg.jpg');
+const imageBG = require('../../../assets/backgrounds/bg-login.jpg');
 const logoImg = require('../../../assets/images/logo_official.png');
 
 const Login = (props) => {
