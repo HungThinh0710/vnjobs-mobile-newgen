@@ -276,13 +276,16 @@ const Apply = ({ navigation }) => {
                         // }
                         setPayload(payload.data);
                     }
+                    setIsLoading(false)
                 } catch (error) {
                     console.error(error);
+                    setIsLoading(false)
                 }
 
             }
 
             async function checkIsLogged() {
+                setIsLoading(true)
                 const accessToken = await AS.getAccessToken();
                 if (typeof (accessToken) != 'undefined' || accessToken !== null) {
                     setIsLogged(true)
@@ -296,43 +299,43 @@ const Apply = ({ navigation }) => {
         return unsubscribe;
     }, []);
 
-    if (isLogged) {
+    if (isLoading) {
         return (
-            <SafeAreaView style={styles.container}>
-                <Header title='Applied Jobs' />
-                {isLoading ?
-                    (
-                        <ScrollView
-                            scrollEnabled={true}
-                            style={styles.wrapperContent}>
-                            {/* <BlurBg /> */}
-                            {showPlaceholderLoadingForList()}
-                        </ScrollView>
-                    ) :
+            <ScrollView
+                scrollEnabled={true}
+                style={styles.wrapperContent}>
+                {/* <BlurBg /> */}
+                {showPlaceholderLoadingForList()}
+            </ScrollView>
+        );
+    }
+    return (
+        <SafeAreaView style={styles.container}>
+            <Header title='Applied Jobs' />
+            {isLogged ?
+                (
                     <ScrollView
                         scrollEnabled={true}
                         style={styles.wrapperContent}>
                         <BlurBg />
                         {payload.length <= 0 ? showEmptyApplied() : showAppliedJob(payload)}
                     </ScrollView>
-                }
-            </SafeAreaView>
-        )
-    }
-    return (
-        <SafeAreaView style={styles.container}>
-            <Header title='Applied Jobs' />
-            <View
-                scrollEnabled={true}
-                style={styles.wrapperContent}>
-                <BlurBg />
-                <View style={styles.context}>
-                    {showUnavailable()}
-                </View>
+                ) :
+                (
+                    <View
+                        scrollEnabled={true}
+                        style={styles.wrapperContent}>
+                        <BlurBg />
+                        <View style={styles.context}>
+                            {showUnavailable()}
+                        </View>
 
-            </View>
+                    </View>
+                )
+            }
         </SafeAreaView>
     )
+
 }
 
 export default Apply
