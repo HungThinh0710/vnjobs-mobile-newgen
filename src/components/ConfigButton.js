@@ -1,18 +1,40 @@
-import React from 'react'
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
-import { Icon, Switch } from 'react-native-elements'
+import React from 'react';
+import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
+import {Icon, Switch} from 'react-native-elements';
 
-const ConfigButton = ({style, value = true, switchOnPress, iconColor = '#666', icon, textColor, onPress, title = 'Security', subTitle = '8 characters'}) => {
+const ConfigButton = ({
+    style,
+    value = true,
+    switchOnPress,
+    iconColor = '#666',
+    icon,
+    textColor,
+    onPress,
+    title = 'Security',
+    subTitle = '8 characters',
+}) => {
     return (
-        <TouchableOpacity style={[styles.container, styles.shadow, style]} activeOpacity={.8} onPress={onPress} >
+        <TouchableOpacity
+            style={[styles.container, styles.shadow, style]}
+            activeOpacity={0.8}
+            onPress={onPress}>
             <View style={styles.topContent}>
                 <View style={styles.topLeftContent}>
                     <View style={styles.borderIcon}>
-                        {icon ? icon : <Icon size={25} name='lock' type='font-awesome-5' color='#666' /> }
+                        {icon ? (
+                            icon
+                        ) : (
+                            <Icon
+                                size={25}
+                                name="lock"
+                                type="font-awesome-5"
+                                color="#666"
+                            />
+                        )}
                     </View>
                 </View>
                 <View style={styles.topRightContent}>
-                    <Switch value={value} />
+                    {/* <Switch value={value} /> */}
                 </View>
             </View>
             <View style={styles.bottomContent}>
@@ -24,21 +46,21 @@ const ConfigButton = ({style, value = true, switchOnPress, iconColor = '#666', i
                 </View>
             </View>
         </TouchableOpacity>
-    )
-}
+    );
+};
 
-export default ConfigButton
+export default ConfigButton;
 
 const styles = StyleSheet.create({
     container: {
         maxWidth: 160,
-        width: 160, 
+        width: 160,
         height: 160,
-        marginVertical: 10, 
+        marginVertical: 10,
         marginHorizontal: 10,
         borderRadius: 16,
         padding: 10,
-        backgroundColor: '#000'   
+        backgroundColor: '#000',
     },
     shadow: {
         shadowColor: '#9c9c9c',
@@ -57,7 +79,7 @@ const styles = StyleSheet.create({
     topLeftContent: {
         flex: 1,
         justifyContent: 'center',
-        alignItems: 'flex-start'
+        alignItems: 'flex-start',
     },
     borderIcon: {
         width: 45,
@@ -67,18 +89,18 @@ const styles = StyleSheet.create({
         borderColor: '#666',
         borderWidth: 1,
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
     },
     topRightContent: {
         flex: 1,
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
     },
     bottomContent: {
         flex: 1,
         justifyContent: 'flex-end',
         alignItems: 'flex-start',
-        paddingBottom: 15
+        paddingBottom: 15,
     },
     texttb: {
         color: '#ffffff',
@@ -89,5 +111,4 @@ const styles = StyleSheet.create({
         color: '#dfdfdf',
         fontSize: 12,
     },
-
-})
+});

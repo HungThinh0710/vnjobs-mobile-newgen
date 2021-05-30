@@ -10,11 +10,18 @@ import {
     TouchableOpacity,
     TouchableNativeFeedback,
     TouchableWithoutFeedback,
+    Platform,
 } from 'react-native';
 const searchGlass = require('../../assets/images/001-magnifying-glass.png');
 const filterIcon = require('../../assets/images/icons8-adjust.png');
-
-const Search = ({placeholder = null, onPress, filterOnpress, onChangeText, children}) => {
+import {Icon} from 'react-native-elements';
+const Search = ({
+    placeholder = null,
+    onPress,
+    filterOnpress,
+    onChangeText,
+    children,
+}) => {
     return (
         <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
             <View style={[styles.container]}>
@@ -87,7 +94,7 @@ const styles = StyleSheet.create({
     },
     inputSearch: {
         flex: 1,
-        paddingLeft: 45,
+        paddingLeft: Platform.OS === 'ios' ? 45 : 15,
         paddingEnd: 5,
         fontSize: 14,
         height: 50,
@@ -104,7 +111,7 @@ const styles = StyleSheet.create({
         position: 'absolute',
         left: 13,
         top: 13,
-        zIndex: 20,
+        zIndex: 999,
     },
     searchIcon: {
         width: 25,
@@ -135,5 +142,4 @@ const styles = StyleSheet.create({
         shadowRadius: 5,
         shadowOpacity: 0.79,
     },
-    
 });

@@ -31,15 +31,7 @@ const SettingButton = ({
             <View style={styles.rightContent}>
                 {right ? (
                     right
-                ) : (
-                    <Icon
-                        style={styles.rightIcon}
-                        name="edit"
-                        type="font-awesome-5"
-                        size={24}
-                        color='#ADE2FF'
-                    />
-                )}
+                ) : null}
             </View>
         </TouchableOpacity>
     );
