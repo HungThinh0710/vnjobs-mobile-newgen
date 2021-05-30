@@ -8,9 +8,9 @@ import Activity from './Activity';
 import ListJob from './ListJob';
 import SettingButton from './SettingButton';
 import ConfigButton from './ConfigButton';
-import ProfileImage from './ProfileImage';
-import ProfileHorizontalButton from './ProfileHorizontalButton';
-import ProfileButton from './ProfileButton';
+import TextInputWithIcon from './TextInputWithIcon';
+import Loading from './Loading';
+import BlueBg from './BlueBg';
 
 export {
     Search,
@@ -23,7 +23,7 @@ export {
     ListJob,
     SettingButton,
     ConfigButton,
-    ProfileImage,
-    ProfileButton,
-    ProfileHorizontalButton
+    TextInputWithIcon,
+    Loading,
+    BlueBg,
 };

@@ -6,6 +6,7 @@ import Login from '../screens/Login';
 import Menu from '../screens/Menu';
 import Register from '../screens/Register';
 import Setting from '../screens/Setting';
+import Profile from '../screens/Profile';
 
 const Stack = createStackNavigator();
 
@@ -42,15 +43,27 @@ const SettingStackNavigator = () => {
         headerMode='none'
     >
         <Stack.Screen name='Setting' component={Setting} />
+        <Stack.Screen name='Profile' component={Profile} />
+
     </Stack.Navigator>
 }
 
 const LoginStackNavigator = () => {
     return <Stack.Navigator
         initialRouteName='Login'
+        headerMode="none"
     >
         <Stack.Screen name='Login' component={Login} />
         <Stack.Screen name='Register' component={Register} />
+    </Stack.Navigator>
+}
+
+const ProfileStackNavigator = () => {
+    return <Stack.Navigator
+        initialRouteName='Profile'
+        headerMode="none"
+    >
+        <Stack.Screen name='Profile' component={Profile} />
     </Stack.Navigator>
 }
 
@@ -60,4 +73,5 @@ export {
     MenuStackNavigator,
     SettingStackNavigator,
     LoginStackNavigator,
+    ProfileStackNavigator,
 }

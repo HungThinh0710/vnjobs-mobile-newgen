@@ -37,7 +37,6 @@ const Setting = ({navigation}) => {
         }
         checkToken();
     }, []);
-
     return (
         <SafeAreaView style={styles.container}>
             <Header title="Settings" />
@@ -71,7 +70,6 @@ const Setting = ({navigation}) => {
                             onPress={() => navigation.navigate('Login')}
                         />
                     )}
-
                     <SettingButton
                         title="Notification"
                         left={
@@ -89,8 +87,8 @@ const Setting = ({navigation}) => {
                     <View style={styles.wrapperConfig}>
                         <ConfigButton />
                         <ConfigButton
-                            style={{backgroundColor: '#efefef'}}
-                            textColor={{color: '#000'}}
+                            style={{ backgroundColor: '#efefef' }}
+                            textColor={{ color: '#000' }}
                             value={false}
                             title="Photos"
                             subTitle=""
