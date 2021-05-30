@@ -22,7 +22,6 @@ const Item = ({ item }) => (
                 />
             </View>
             <View style={styles.contentMiddle}>
-                {console.log(item.major.major_name)}
                 <Text style={styles.jobTitle}>{item.title}</Text>
                 <Text style={styles.companyName}>{`${item.major.major_name}, ${item.city}`}</Text>
             </View>
@@ -44,7 +43,7 @@ const Item = ({ item }) => (
 
 const ListJob = (props) => {
     const data = props;
-    console.log(data.data);
+    // console.log(data.data);
     const renderItem = ({ item }) => (
 
         <Item item={item} />
