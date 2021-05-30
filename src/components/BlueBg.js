@@ -14,6 +14,6 @@ const styles = StyleSheet.create({
     background: {
         flex: 1,
         resizeMode: "cover",
-        justifyContent: "center"
+        justifyContent: "center",
     },
 });
