@@ -8,6 +8,9 @@ import Activity from './Activity';
 import ListJob from './ListJob';
 import SettingButton from './SettingButton';
 import ConfigButton from './ConfigButton';
+import ProfileImage from './ProfileImage';
+import ProfileHorizontalButton from './ProfileHorizontalButton';
+import ProfileButton from './ProfileButton';
 
 export {
     Search,
@@ -19,5 +22,8 @@ export {
     Activity,
     ListJob,
     SettingButton,
-    ConfigButton
+    ConfigButton,
+    ProfileImage,
+    ProfileButton,
+    ProfileHorizontalButton
 };
