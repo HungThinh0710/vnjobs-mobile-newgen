@@ -5,7 +5,7 @@ import * as API from '../../api/Endpoints'
 import { LogBox } from 'react-native';
 const axios = require('axios');
 
-const Home = () => {
+const Home = ({navigation}) => {
 
     const [listJobs, setListJobs] = useState(null);
     const [isLoadingListJob, setIsLoadingListJob] = useState(true)
@@ -33,7 +33,7 @@ const Home = () => {
                         <Text style={styles.title}>Activities</Text>
                         <Activity />
                         <Text style={styles.title}>Suggested Jobs</Text>
-                        <ListJob data={listJobs} />
+                        <ListJob data={listJobs} navigation={navigation} />
                     </View>
 
                 </ScrollView>

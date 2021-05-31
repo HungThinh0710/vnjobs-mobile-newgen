@@ -31,7 +31,7 @@ const wait = timeout => {
     return new Promise(resolve => setTimeout(resolve, timeout));
 };
 
-const Menu = () => {
+const Menu = ({navigation}) => {
     const rnd = Math.round(99 + Math.random() * 1000);
     const [isPopup, setIsPopup] = useState(false);
     const [postData, setPostData] = useState(null);
@@ -397,7 +397,11 @@ const Menu = () => {
                             })
                         }
                         color="#666666"
-                        style={{marginEnd: 15, paddingBottom: 2, borderRadius: 20}}
+                        style={{
+                            marginEnd: 15,
+                            paddingBottom: 2,
+                            borderRadius: 20,
+                        }}
                     />
                     <Text>City</Text>
                 </View>
@@ -412,7 +416,11 @@ const Menu = () => {
                             })
                         }
                         color="#666666"
-                        style={{marginEnd: 15, paddingBottom: 2, borderRadius: 20}}
+                        style={{
+                            marginEnd: 15,
+                            paddingBottom: 2,
+                            borderRadius: 20,
+                        }}
                     />
                     <Text>Title</Text>
                 </View>
@@ -427,7 +435,11 @@ const Menu = () => {
                             })
                         }
                         color="#666666"
-                        style={{marginEnd: 15, paddingBottom: 2, borderRadius: 20}}
+                        style={{
+                            marginEnd: 15,
+                            paddingBottom: 2,
+                            borderRadius: 20,
+                        }}
                     />
                     <Text>Type</Text>
                 </View>
@@ -465,7 +477,16 @@ const Menu = () => {
                             horizontal={true}
                             data={popularPost}
                             renderItem={items => {
-                                return <PopularJobItem item={items.item} />;
+                                return (
+                                    <PopularJobItem
+                                        item={items.item}
+                                        onPress={() =>
+                                            navigation.navigate('JobDetail', {
+                                                item: items.item,
+                                            })
+                                        }
+                                    />
+                                );
                             }}
                             key={item => item.id}
                             keyExtractor={item => item.id}
@@ -483,7 +504,17 @@ const Menu = () => {
                                 style={styles.flatlistViewVertical}
                                 data={[...searchPost, ...recentPost]}
                                 renderItem={items => {
-                                    return <RecentJobItem item={items.item} />;
+                                    return (
+                                        <RecentJobItem
+                                            item={items.item}
+                                            onPress={() =>
+                                                navigation.navigate(
+                                                    'JobDetail',
+                                                    {item: items.item},
+                                                )
+                                            }
+                                        />
+                                    );
                                 }}
                                 key={item =>
                                     item.id +
@@ -501,7 +532,17 @@ const Menu = () => {
                                 style={styles.flatlistViewVertical}
                                 data={recentPost}
                                 renderItem={items => {
-                                    return <RecentJobItem item={items.item} />;
+                                    return (
+                                        <RecentJobItem
+                                            item={items.item}
+                                            onPress={() =>
+                                                navigation.navigate(
+                                                    'JobDetail',
+                                                    {item: items.item},
+                                                )
+                                            }
+                                        />
+                                    );
                                 }}
                                 key={item => item.id + rnd}
                                 keyExtractor={item => item.id + rnd}
@@ -511,7 +552,17 @@ const Menu = () => {
                                 style={styles.flatlistViewVertical}
                                 data={recentPost}
                                 renderItem={items => {
-                                    return <RecentJobItem item={items.item} />;
+                                    return (
+                                        <RecentJobItem
+                                            item={items.item}
+                                            onPress={() =>
+                                                navigation.navigate(
+                                                    'JobDetail',
+                                                    {item: items.item},
+                                                )
+                                            }
+                                        />
+                                    );
                                 }}
                                 key={item => item.id + rnd}
                                 keyExtractor={item => item.id + rnd}
@@ -525,7 +576,17 @@ const Menu = () => {
                                 style={styles.flatlistViewVertical}
                                 data={recentPost}
                                 renderItem={items => {
-                                    return <RecentJobItem item={items.item} />;
+                                    return (
+                                        <RecentJobItem
+                                            item={items.item}
+                                            onPress={() =>
+                                                navigation.navigate(
+                                                    'JobDetail',
+                                                    {item: items.item},
+                                                )
+                                            }
+                                        />
+                                    );
                                 }}
                                 key={item => item.id + rnd}
                                 keyExtractor={item => item.id + rnd}
@@ -539,7 +600,17 @@ const Menu = () => {
                                 style={styles.flatlistViewVertical}
                                 data={searchPost}
                                 renderItem={items => {
-                                    return <RecentJobItem item={items.item} />;
+                                    return (
+                                        <RecentJobItem
+                                            item={items.item}
+                                            onPress={() =>
+                                                navigation.navigate(
+                                                    'JobDetail',
+                                                    {item: items.item},
+                                                )
+                                            }
+                                        />
+                                    );
                                 }}
                                 key={item => item.id + rnd}
                                 keyExtractor={item => item.id + rnd}
@@ -552,7 +623,16 @@ const Menu = () => {
                             style={styles.flatlistViewVertical}
                             data={postData}
                             renderItem={items => {
-                                return <RecentJobItem item={items.item} />;
+                                return (
+                                    <RecentJobItem
+                                        item={items.item}
+                                        onPress={() =>
+                                            navigation.navigate('JobDetail', {
+                                                item: items.item,
+                                            })
+                                        }
+                                    />
+                                );
                             }}
                             key={item => item.id + rnd}
                             keyExtractor={item => item.id + rnd}
@@ -710,8 +790,7 @@ const styles = StyleSheet.create({
         fontWeight: '600',
         color: '#666666',
     },
-    radioFilter: {
-    },
+    radioFilter: {},
     wrapperTab: {
         flex: 1,
         flexDirection: 'row',

@@ -20,8 +20,9 @@ const Setting = ({navigation}) => {
                     },
                 });
                 console.log('Axios STT Code: ' + payload.status);
-                if (payload.status == 200) {
+                if (payload.status === 200) {
                     setUser(payload.data);
+                    console.log(payload.data);
                 }
             } catch (error) {
                 // console.error(error);
@@ -31,8 +32,8 @@ const Setting = ({navigation}) => {
 
         async function checkToken() {
             const accessToken = await AS.getAccessToken();
-            if (typeof accessToken != 'undefined' || accessToken !== null) {
-                getUserInformation();
+            if (typeof accessToken !== 'undefined' || accessToken !== null) {
+                getUserInformation(accessToken);
             }
         }
         checkToken();
