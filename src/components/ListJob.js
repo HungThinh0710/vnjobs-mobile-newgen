@@ -1,5 +1,5 @@
-import React, {useState} from 'react';
-import {TouchableOpacity} from 'react-native';
+import React, { useState } from 'react';
+import { TouchableOpacity } from 'react-native';
 import {
     StyleSheet,
     View,
@@ -25,11 +25,11 @@ const DATA_EXAMPLE = [
     // { id: 5, job_name: 'Product Designer, Google Inc', company: 'Google inc', city: ', Singapore', major: 'Remote' },
 ];
 
-const Item = ({navigation, item}) => (
+const Item = ({ navigation, item }) => (
     <TouchableOpacity
         activeOpacity={0.75}
         style={styles.item}
-        onPress={() => navigation.navigate('JobDetail', {item: item})}>
+        onPress={() => navigation.navigate('JobDetail', { item: item })}>
         <View style={styles.content}>
             <View style={styles.contentLogo}>
                 <Image
@@ -66,7 +66,7 @@ const Item = ({navigation, item}) => (
 const ListJob = props => {
     const data = props;
     // console.log(data.data);
-    const renderItem = ({item}) => <Item item={item} navigation={data.navigation} />;
+    const renderItem = ({ item }) => <Item item={item} navigation={data.navigation} />;
     return (
         <SafeAreaView style={styles.container}>
             <View>
@@ -91,7 +91,7 @@ const styles = StyleSheet.create({
         //Shadow
         shadowColor: 'black',
         shadowOpacity: 0.26,
-        shadowOffset: {width: 0, height: 3},
+        shadowOffset: { width: 0, height: 3 },
         shadowRadius: 10,
         elevation: 6, //android
     },
