@@ -159,21 +159,21 @@ const index = ({navigation, route}) => {
         if (typeof accessToken !== 'undefined' || accessToken !== null) {
             const data = JSON.stringify({
                 rn_id: item.id,
-                is_elect: false,
                 cv_path: cv,
                 cover_letter_path: coverLetter,
                 exp_years: yearExp,
             });
-            const headers = {
-                Accept: 'application/json',
-                'Content-Type': 'application/json; charset=utf-8',
-                Authorization: `Bearer ${accessToken}`,
-            };
             try {
-                const response = await axios.put(API.APPLY, data, {
+                const formdata = new FormData();
+                formdata.append('rn_id', item.id);
+                formdata.append('exp_years', yearExp);
+                formdata.append('cover_letter_path', coverLetter);
+                formdata.append('cv_path', cv);
+                console.log('FORM DATA');
+                console.log(formdata);
+                const response = await axios.post(API.APPLY, formdata, {
                     headers: {
-                        Accept: 'application/json',
-                        'Content-Type': 'application/json; charset=utf-8',
+                        'Content-Type': `multipart/form-data`,
                         Authorization: `Bearer ${accessToken}`,
                     },
                 });
@@ -202,7 +202,13 @@ const index = ({navigation, route}) => {
             const res = await DocumentPicker.pick({
                 type: [DocumentPicker.types.pdf],
             });
-            setCv(res.name);
+            const tempRes = {
+                uri: res.uri,
+                name: res.name,
+                size: res.size,
+                type: res.type,
+            };
+            setCv(tempRes); //here
         } catch (err) {
             if (DocumentPicker.isCancel(err)) {
                 // User cancelled the picker, exit any dialogs or menus and move on
@@ -217,7 +223,13 @@ const index = ({navigation, route}) => {
             const res = await DocumentPicker.pick({
                 type: [DocumentPicker.types.pdf],
             });
-            setCoverLetter(res.name);
+            const tempRes = {
+                uri: res.uri,
+                name: res.name,
+                size: res.size,
+                type: res.type,
+            };
+            setCoverLetter(tempRes);
         } catch (err) {
             if (DocumentPicker.isCancel(err)) {
                 // User cancelled the picker, exit any dialogs or menus and move on
@@ -379,7 +391,7 @@ const index = ({navigation, route}) => {
                         </View>
                         <View style={styles.showContentWrapper}>
                             <Text style={styles.contentText}>
-                                CV path: {cv}
+                                CV path: {cv.name}
                             </Text>
                         </View>
                         <View style={styles.rowChooseFile}>
@@ -396,7 +408,7 @@ const index = ({navigation, route}) => {
                         </View>
                         <View style={styles.showContentWrapper}>
                             <Text style={styles.contentText}>
-                                Cover letter path: {coverLetter}
+                                Cover letter path: {coverLetter.name}
                             </Text>
                         </View>
                         <TouchableOpacity
