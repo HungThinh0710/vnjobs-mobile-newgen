@@ -332,6 +332,7 @@ const Apply = ({navigation}) => {
                 } catch (error) {
                     console.error(error);
                     setIsLoading(false);
+                    setPayload([]);
                 }
             }
 
