@@ -9,6 +9,7 @@ import {
     Image,
     Keyboard,
     TouchableOpacity,
+    LogBox
 } from 'react-native';
 import {Header} from '../../components/index';
 import * as API from '../../api/Endpoints';
@@ -22,7 +23,7 @@ const AS = require('../../utilities/AsyncStorageHandler');
 const companyLogoDefault = require('../../../assets/images/google.png');
 const axios = require('axios');
 const windowWidth = Dimensions.get('window').width + 10;
-
+LogBox.ignoreAllLogs();
 const index = ({navigation, route}) => {
     const {item} = route.params;
     const [timeleft, setTimeleft] = useState('');
@@ -77,10 +78,16 @@ const index = ({navigation, route}) => {
         );
 
         async function getCompanyName() {
-            const response = await axios.get(
-                API.LIST_ORGANIZATION + '/' + item.org_id,
-            );
-            setCompanyName(response.data.org_name);
+            try {
+                const response = await axios.get(
+                    API.LIST_ORGANIZATION + '/find-by-id/' + item.org_id,
+                );
+                if (response.status === 200)
+                    setCompanyName(response.data.org_name);
+            } catch (error) {
+                console.log(error);
+            }
+            
         }
 
         async function getRelateJob() {

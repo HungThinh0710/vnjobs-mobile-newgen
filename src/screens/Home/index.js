@@ -133,6 +133,6 @@ const styles = StyleSheet.create({
     wrapperContent: {
         flex: 1,
         zIndex: 2,
-        marginHorizontal: 10,
+        paddingHorizontal: 10,
     },
 })

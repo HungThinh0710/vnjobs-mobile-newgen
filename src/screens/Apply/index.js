@@ -1,13 +1,22 @@
-import React, { useEffect, useState } from 'react'
-import { StyleSheet, Text, View, SafeAreaView, ScrollView, Dimensions, FlatList, Image } from 'react-native'
-import { Header, BlurBg } from '../../components'
+import React, {useEffect, useState} from 'react';
+import {
+    StyleSheet,
+    Text,
+    View,
+    SafeAreaView,
+    ScrollView,
+    Dimensions,
+    FlatList,
+    Image,
+} from 'react-native';
+import {Header, BlurBg} from '../../components';
 import Icon from 'react-native-vector-icons/Fontisto';
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
-import { TouchableOpacity } from 'react-native-gesture-handler';
-const axios = require("axios");
-import * as API from '../../api/Endpoints'
-import { LogBox } from 'react-native';
-import SkeletonPlaceholder from "react-native-skeleton-placeholder";
+import {TouchableOpacity} from 'react-native-gesture-handler';
+const axios = require('axios');
+import * as API from '../../api/Endpoints';
+import {LogBox} from 'react-native';
+import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
 const AS = require('../../utilities/AsyncStorageHandler');
 import LottieView from 'lottie-react-native';
 
@@ -30,7 +39,7 @@ const styles = StyleSheet.create({
     unavailableText: {
         textAlign: 'center',
         fontSize: 20,
-        paddingTop: 10
+        paddingTop: 10,
     },
     signInNow: {
         padding: 15,
@@ -40,8 +49,8 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         borderRadius: 10,
         marginTop: 10,
-        color: "#FFF",
-        fontSize: 17
+        color: '#FFF',
+        fontSize: 17,
     },
     context: {
         height: Dimensions.get('window').height - (145 + 80),
@@ -52,7 +61,7 @@ const styles = StyleSheet.create({
     },
     wrapFlatListView: {
         backgroundColor: 'white',
-        marginHorizontal: 10
+        marginHorizontal: 10,
     },
     flatlistViewVertical: {
         // maxHeight: 175,
@@ -68,7 +77,7 @@ const styles = StyleSheet.create({
         //Shadow
         shadowColor: 'black',
         shadowOpacity: 0.26,
-        shadowOffset: { width: 0, height: 3 },
+        shadowOffset: {width: 0, height: 3},
         shadowRadius: 10,
         elevation: 6, //android
     },
@@ -78,13 +87,13 @@ const styles = StyleSheet.create({
     titleItem: {
         fontSize: 19,
         flex: 3,
-        fontWeight: 'bold'
+        fontWeight: 'bold',
     },
     statusItem: {
         flex: 1,
         textAlign: 'right',
-        color: "#ED3E23",
-        fontWeight: 'bold'
+        color: '#ED3E23',
+        fontWeight: 'bold',
     },
     contentItem: {
         flexDirection: 'row',
@@ -96,13 +105,13 @@ const styles = StyleSheet.create({
     },
     companyContextItem: {
         fontSize: 14,
-        color: "#EF3E23",
+        color: '#EF3E23',
         fontWeight: 'bold',
     },
     cityContextItem: {
         fontSize: 17,
         fontWeight: 'bold',
-        marginTop: 3
+        marginTop: 3,
     },
     workTypeTagItem: {
         marginTop: 3,
@@ -111,14 +120,14 @@ const styles = StyleSheet.create({
         backgroundColor: '#CCE8FF',
         color: '#07B1B8',
         textAlign: 'center',
-        borderRadius: 8
+        borderRadius: 8,
     },
     contentRightItem: {
         flex: 1,
         // backgroundColor: 'red',
         justifyContent: 'flex-end',
         // justifyContent: 'space-evenly',
-        alignItems: 'flex-end'
+        alignItems: 'flex-end',
     },
     tinyLogo: {
         width: 65,
@@ -126,13 +135,13 @@ const styles = StyleSheet.create({
     },
     anim: {
         height: 220,
-        alignSelf: 'center'
-    }
-})
+        alignSelf: 'center',
+    },
+});
 
-const defaultStructView = [{ "id": 1 }, { "id": 2 }, { "id": 3 }];
+const defaultStructView = [{id: 1}, {id: 2}, {id: 3}];
 
-const renderItem = ({ item }) => (
+const renderItem = ({item}) => (
     <View style={styles.item}>
         {console.log(item)}
         <View style={styles.titleAndStatus}>
@@ -141,17 +150,23 @@ const renderItem = ({ item }) => (
         </View>
         <View style={styles.contentItem}>
             <View style={styles.contentLeftItem}>
-                {console.log("ORG: NAME")}
+                {console.log('ORG: NAME')}
                 {console.log(item.recruitment_news.org.org_name)}
-                <Text style={styles.companyContextItem}>{item.recruitment_news.org.org_name}</Text>
-                <Text style={styles.cityContextItem}>{item.recruitment_news.city}</Text>
-                <Text style={styles.workTypeTagItem}>{item.recruitment_news.work_type}</Text>
+                <Text style={styles.companyContextItem}>
+                    {item.recruitment_news.org.org_name}
+                </Text>
+                <Text style={styles.cityContextItem}>
+                    {item.recruitment_news.city}
+                </Text>
+                <Text style={styles.workTypeTagItem}>
+                    {item.recruitment_news.work_type}
+                </Text>
             </View>
             <View style={styles.contentRightItem}>
                 <Image
                     style={styles.tinyLogo}
                     source={{
-                        uri: 'https://reactnative.dev/img/tiny_logo.png'
+                        uri: 'https://reactnative.dev/img/tiny_logo.png',
                     }}
                 />
             </View>
@@ -161,8 +176,12 @@ const renderItem = ({ item }) => (
 
 const showUnavailable = () => (
     <View style={styles.unavailable}>
-        <Text style={styles.unavailableText}><Icon name="wink" size={145} color="#3D7DFF" /></Text>
-        <Text style={styles.unavailableText}>You need sign in to view applied jobs</Text>
+        <Text style={styles.unavailableText}>
+            <Icon name="wink" size={145} color="#3D7DFF" />
+        </Text>
+        <Text style={styles.unavailableText}>
+            You need sign in to view applied jobs
+        </Text>
         <TouchableOpacity style={styles.wrapSignIn}>
             <Text style={styles.signInNow}>Sign In</Text>
         </TouchableOpacity>
@@ -180,12 +199,16 @@ const showEmptyApplied = () => (
             // width={300}
             // height={300}
             // alignItems="center"
-            source={require('../../../assets/lottie/not-found.json')} speed={1} autoPlay loop />
+            source={require('../../../assets/lottie/not-found.json')}
+            speed={1}
+            autoPlay
+            loop
+        />
         <Text style={styles.unavailableText}>You have not apply any job.</Text>
     </View>
 );
 
-const showAppliedJob = (payload) => (
+const showAppliedJob = payload => (
     <View style={styles.wrapFlatListView}>
         {/* <Text style={styles.unavailableText}><IconAntDesign name="inbox" size={100} color="#3D7DFF" /></Text>
         <Text style={styles.unavailableText}>Welcome to my world.</Text> */}
@@ -199,59 +222,88 @@ const showAppliedJob = (payload) => (
     </View>
 );
 
-const renderPlaceholderLoadingItem = ({ item }) => (
-    <View style={{
-        backgroundColor: 'white',
-        padding: 10,
-        marginVertical: 8,
-        marginHorizontal: 3,
-        borderRadius: 8,
-        shadowColor: 'black',
-        shadowOpacity: 0.26,
-        shadowOffset: { width: 0, height: 3 },
-        shadowRadius: 10,
-        elevation: 6,
-    }}>
+const renderPlaceholderLoadingItem = ({item}) => (
+    <View
+        style={{
+            backgroundColor: 'white',
+            padding: 10,
+            marginVertical: 8,
+            marginHorizontal: 3,
+            borderRadius: 8,
+            shadowColor: 'black',
+            shadowOpacity: 0.26,
+            shadowOffset: {width: 0, height: 3},
+            shadowRadius: 10,
+            elevation: 6,
+        }}>
         <SkeletonPlaceholder>
             <SkeletonPlaceholder.Item marginHorizontal={10}>
                 {/* JOBNAME & STATUS */}
-                <SkeletonPlaceholder.Item flexDirection="row" justifyContent="space-between">
-                    <SkeletonPlaceholder.Item width={250} height={30} borderRadius={5} />
-                    <SkeletonPlaceholder.Item marginLeft={5} width={80} height={22} borderRadius={5} />
+                <SkeletonPlaceholder.Item
+                    flexDirection="row"
+                    justifyContent="space-between">
+                    <SkeletonPlaceholder.Item
+                        width={250}
+                        height={30}
+                        borderRadius={5}
+                    />
+                    <SkeletonPlaceholder.Item
+                        marginLeft={5}
+                        width={80}
+                        height={22}
+                        borderRadius={5}
+                    />
                 </SkeletonPlaceholder.Item>
                 <SkeletonPlaceholder.Item flexDirection="row">
                     <SkeletonPlaceholder.Item flexDirection="column" flex={3}>
-                        <SkeletonPlaceholder.Item marginTop={5} width={110} height={20} borderRadius={5} />
-                        <SkeletonPlaceholder.Item marginTop={5} width={150} height={22} borderRadius={5} />
-                        <SkeletonPlaceholder.Item marginTop={5} width={80} height={20} borderRadius={5} />
+                        <SkeletonPlaceholder.Item
+                            marginTop={5}
+                            width={110}
+                            height={20}
+                            borderRadius={5}
+                        />
+                        <SkeletonPlaceholder.Item
+                            marginTop={5}
+                            width={150}
+                            height={22}
+                            borderRadius={5}
+                        />
+                        <SkeletonPlaceholder.Item
+                            marginTop={5}
+                            width={80}
+                            height={20}
+                            borderRadius={5}
+                        />
                     </SkeletonPlaceholder.Item>
-                    <SkeletonPlaceholder.Item flex={1} justifyContent="flex-end" alignItems="flex-end">
-                        <SkeletonPlaceholder.Item width={60} height={60} borderRadius={10} />
+                    <SkeletonPlaceholder.Item
+                        flex={1}
+                        justifyContent="flex-end"
+                        alignItems="flex-end">
+                        <SkeletonPlaceholder.Item
+                            width={60}
+                            height={60}
+                            borderRadius={10}
+                        />
                     </SkeletonPlaceholder.Item>
                 </SkeletonPlaceholder.Item>
             </SkeletonPlaceholder.Item>
         </SkeletonPlaceholder>
-
     </View>
-
 );
 
 const showPlaceholderLoadingForList = () => (
-
     <View style={styles.wrapFlatListView}>
         <FlatList
-            style={{ paddingVertical: 5 }}
+            style={{paddingVertical: 5}}
             data={defaultStructView}
             renderItem={renderPlaceholderLoadingItem}
             key={item => item.id}
             keyExtractor={item => item.id}
         />
     </View>
-
 );
 
-const Apply = ({ navigation }) => {
-
+const Apply = ({navigation}) => {
     const [isLogged, setIsLogged] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
     const [payload, setPayload] = useState([]);
@@ -264,78 +316,72 @@ const Apply = ({ navigation }) => {
                         headers: {
                             Accept: 'application/json',
                             'Content-Type': 'application/json; charset=utf-8',
-                            Authorization: `Bearer ${accessToken}`
-                        }
+                            Authorization: `Bearer ${accessToken}`,
+                        },
                     });
-                    console.log("Axios STT Code: " + payload.status);
+                    console.log('Axios STT Code: ' + payload.status);
                     if (payload.status == 200) {
-                        setIsLoading(false)
+                        setIsLoading(false);
                         // console.log("Payload length: " + payload.data.length);
                         // if (payload.data.length <= 0) {
                         //     console.log("Ban chua applied cai nào");
                         // }
                         setPayload(payload.data);
                     }
-                    setIsLoading(false)
+                    setIsLoading(false);
                 } catch (error) {
                     console.error(error);
-                    setIsLoading(false)
+                    setIsLoading(false);
                 }
-
             }
 
             async function checkIsLogged() {
-                setIsLoading(true)
+                setIsLoading(true);
                 const accessToken = await AS.getAccessToken();
-                if (typeof (accessToken) != 'undefined' || accessToken !== null) {
-                    setIsLogged(true)
-                    getAppliedJobs(accessToken)
+                if (typeof accessToken != 'undefined' || accessToken !== null) {
+                    setIsLogged(true);
+                    getAppliedJobs(accessToken);
                 }
             }
-            setIsLoading(true)
+            setIsLoading(true);
             checkIsLogged();
-
         });
         return unsubscribe;
     }, []);
 
-    if (isLoading) {
-        return (
-            <ScrollView
-                scrollEnabled={true}
-                style={styles.wrapperContent}>
-                {/* <BlurBg /> */}
-                {showPlaceholderLoadingForList()}
-            </ScrollView>
-        );
-    }
+    // if (isLoading) {
+    //     return (
+    //         <ScrollView
+    //             scrollEnabled={true}
+    //             style={styles.wrapperContent}>
+    //             {/* <BlurBg /> */}
+    //             {showPlaceholderLoadingForList()}
+    //         </ScrollView>
+    //     );
+    // }
     return (
         <SafeAreaView style={styles.container}>
-            <Header title='Applied Jobs' />
-            {isLogged ?
-                (
-                    <ScrollView
-                        scrollEnabled={true}
-                        style={styles.wrapperContent}>
-                        <BlurBg />
-                        {payload.length <= 0 ? showEmptyApplied() : showAppliedJob(payload)}
-                    </ScrollView>
-                ) :
-                (
-                    <View
-                        scrollEnabled={true}
-                        style={styles.wrapperContent}>
-                        <BlurBg />
-                        <View style={styles.context}>
-                            {showUnavailable()}
-                        </View>
-
-                    </View>
-                )
-            }
+            <Header title="Applied Jobs" />
+            {isLoading ? (
+                <ScrollView scrollEnabled={true} style={styles.wrapperContent}>
+                    {/* <BlurBg /> */}
+                    {showPlaceholderLoadingForList()}
+                </ScrollView>
+            ) : isLogged ? (
+                <ScrollView scrollEnabled={true} style={styles.wrapperContent}>
+                    <BlurBg />
+                    {payload.length <= 0
+                        ? showEmptyApplied()
+                        : showAppliedJob(payload)}
+                </ScrollView>
+            ) : (
+                <View scrollEnabled={true} style={styles.wrapperContent}>
+                    <BlurBg />
+                    <View style={styles.context}>{showUnavailable()}</View>
+                </View>
+            )}
         </SafeAreaView>
-    )
+    );
+};
 
-}
-
-export default Apply
+export default Apply;

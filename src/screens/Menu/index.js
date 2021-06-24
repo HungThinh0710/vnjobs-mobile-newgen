@@ -30,6 +30,7 @@ const axios = require('axios');
 const wait = timeout => {
     return new Promise(resolve => setTimeout(resolve, timeout));
 };
+LogBox.ignoreAllLogs();
 
 const Menu = ({navigation}) => {
     const rnd = Math.round(99 + Math.random() * 1000);
@@ -105,7 +106,6 @@ const Menu = ({navigation}) => {
     };
 
     useEffect(() => {
-        LogBox.ignoreLogs(['Clean Up useEffect']);
         function getListJobs() {
             axios.get(API.LIST_RECRUITMENT_NEWS).then(response => {
                 setIsLoading(false);
@@ -447,6 +447,19 @@ const Menu = ({navigation}) => {
         );
     };
 
+    const makeid = length => {
+        let text = '';
+        const possible =
+            'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+
+        for (let i = 0; i < length; i++) {
+            text += possible.charAt(
+                Math.floor(Math.random() * possible.length),
+            );
+        }
+        return text;
+    };
+
     return (
         <SafeAreaView style={styles.container}>
             <Header title="Menu" right onPressRight={() => onPopupHandle()} />
@@ -476,20 +489,19 @@ const Menu = ({navigation}) => {
                             style={styles.flatlistViewHorizontal}
                             horizontal={true}
                             data={popularPost}
-                            renderItem={items => {
+                            renderItem={item => {
                                 return (
                                     <PopularJobItem
-                                        item={items.item}
+                                        item={item.item}
                                         onPress={() =>
                                             navigation.navigate('JobDetail', {
-                                                item: items.item,
+                                                item: item.item,
                                             })
                                         }
                                     />
                                 );
                             }}
-                            key={item => item.id}
-                            keyExtractor={item => item.id}
+                            // keyExtractor={item => item.id + makeid(3)}
                         />
                     )}
                     <TitleMore title="Recent Job" more="See all" />
@@ -503,69 +515,63 @@ const Menu = ({navigation}) => {
                             <FlatList
                                 style={styles.flatlistViewVertical}
                                 data={[...searchPost, ...recentPost]}
-                                renderItem={items => {
+                                renderItem={item => {
                                     return (
                                         <RecentJobItem
-                                            item={items.item}
+                                            item={item.item}
                                             onPress={() =>
                                                 navigation.navigate(
                                                     'JobDetail',
-                                                    {item: items.item},
+                                                    {item: item.item},
                                                 )
                                             }
                                         />
                                     );
                                 }}
-                                key={item =>
-                                    item.id +
-                                    rnd +
-                                    Math.round(Math.random(1) * 99999)
-                                }
-                                keyExtractor={item =>
-                                    item.id +
-                                    rnd +
-                                    +Math.round(Math.random(1) * 99999)
-                                }
+                                // keyExtractor={item =>
+                                //     item.id +
+                                //     rnd +
+                                //     makeid(3)
+                                // }
                             />
                         ) : recentPost !== null && recentPost.length > 0 ? (
                             <FlatList
                                 style={styles.flatlistViewVertical}
                                 data={recentPost}
-                                renderItem={items => {
+                                renderItem={item => {
                                     return (
                                         <RecentJobItem
-                                            item={items.item}
+                                            item={item.item}
                                             onPress={() =>
                                                 navigation.navigate(
                                                     'JobDetail',
-                                                    {item: items.item},
+                                                    {item: item.item},
                                                 )
                                             }
                                         />
                                     );
                                 }}
-                                key={item => item.id + rnd}
-                                keyExtractor={item => item.id + rnd}
+                                // keyExtractor={item => item.id + rnd + makeid(3)}
                             />
                         ) : searchPost !== null && searchPost.length > 0 ? (
                             <FlatList
                                 style={styles.flatlistViewVertical}
                                 data={recentPost}
-                                renderItem={items => {
+                                renderItem={item => {
                                     return (
                                         <RecentJobItem
-                                            item={items.item}
+                                            
+                                            item={item.item}
                                             onPress={() =>
                                                 navigation.navigate(
                                                     'JobDetail',
-                                                    {item: items.item},
+                                                    {item: item.item},
                                                 )
                                             }
                                         />
                                     );
                                 }}
-                                key={item => item.id + rnd}
-                                keyExtractor={item => item.id + rnd}
+                                // keyExtractor={item => item.id + rnd + makeid(3)}
                             />
                         ) : (
                             <ShowEmpty />
@@ -575,21 +581,20 @@ const Menu = ({navigation}) => {
                             <FlatList
                                 style={styles.flatlistViewVertical}
                                 data={recentPost}
-                                renderItem={items => {
+                                renderItem={item => {
                                     return (
                                         <RecentJobItem
-                                            item={items.item}
+                                            item={item.item}
                                             onPress={() =>
                                                 navigation.navigate(
                                                     'JobDetail',
-                                                    {item: items.item},
+                                                    {item: item.item},
                                                 )
                                             }
                                         />
                                     );
                                 }}
-                                key={item => item.id + rnd}
-                                keyExtractor={item => item.id + rnd}
+                                // keyExtractor={item => item.id + rnd + makeid(3)}
                             />
                         ) : (
                             <ShowEmpty />
@@ -612,8 +617,7 @@ const Menu = ({navigation}) => {
                                         />
                                     );
                                 }}
-                                key={item => item.id + rnd}
-                                keyExtractor={item => item.id + rnd}
+                                // keyExtractor={item => item.id + rnd + makeid(3)}
                             />
                         ) : (
                             <ShowEmpty />
@@ -634,8 +638,7 @@ const Menu = ({navigation}) => {
                                     />
                                 );
                             }}
-                            key={item => item.id + rnd}
-                            keyExtractor={item => item.id + rnd}
+                            // keyExtractor={item => item.id + rnd + makeid(3)}
                         />
                     ) : (
                         <ShowEmpty />
