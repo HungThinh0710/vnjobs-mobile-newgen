@@ -33,19 +33,22 @@ const Setting = ({navigation}) => {
 
             async function checkToken() {
                 const accessToken = await AS.getAccessToken();
-                if (typeof accessToken !== 'undefined' || accessToken !== null) {
+                if (
+                    typeof accessToken !== 'undefined' ||
+                    accessToken !== null
+                ) {
                     getUserInformation(accessToken);
                 }
             }
             checkToken();
-        })
+        });
         return () => unsubscribe;
     }, []);
 
-    const logout = async() => {
+    const logout = async () => {
         await AS.clearAll();
         setUser(null);
-    }
+    };
 
     return (
         <SafeAreaView style={styles.container}>
@@ -94,18 +97,24 @@ const Setting = ({navigation}) => {
                             />
                         }
                     />
-                    { user && <SettingButton
-                        title="Logout"
-                        left={
-                            <Icon name="sign-out-alt" type="font-awesome-5" size={24} />
-                        }
-                        onPress={() => logout()}
-                    />}
+                    {user && (
+                        <SettingButton
+                            title="Logout"
+                            left={
+                                <Icon
+                                    name="sign-out-alt"
+                                    type="font-awesome-5"
+                                    size={24}
+                                />
+                            }
+                            onPress={() => logout()}
+                        />
+                    )}
                     <View style={styles.wrapperConfig}>
                         <ConfigButton />
                         <ConfigButton
-                            style={{ backgroundColor: '#efefef' }}
-                            textColor={{ color: '#000' }}
+                            style={{backgroundColor: '#efefef'}}
+                            textColor={{color: '#000'}}
                             value={false}
                             title="Photos"
                             subTitle=""
@@ -130,6 +139,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#ffffff',
+        marginBottom: 112,
     },
     wrapperContent: {
         flex: 1,
