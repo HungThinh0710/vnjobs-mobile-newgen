@@ -10,34 +10,43 @@ const Setting = ({navigation}) => {
     const [user, setUser] = useState(null);
 
     useEffect(() => {
-        async function getUserInformation(accessToken) {
-            try {
-                const payload = await axios.get(API.USER, {
-                    headers: {
-                        Accept: 'application/json',
-                        'Content-Type': 'application/json; charset=utf-8',
-                        Authorization: `Bearer ${accessToken}`,
-                    },
-                });
-                console.log('Axios STT Code: ' + payload.status);
-                if (payload.status === 200) {
-                    setUser(payload.data);
-                    console.log(payload.data);
+        const unsubscribe = navigation.addListener('focus', () => {
+            async function getUserInformation(accessToken) {
+                try {
+                    const payload = await axios.get(API.USER, {
+                        headers: {
+                            Accept: 'application/json',
+                            'Content-Type': 'application/json; charset=utf-8',
+                            Authorization: `Bearer ${accessToken}`,
+                        },
+                    });
+                    console.log('Axios STT Code: ' + payload.status);
+                    if (payload.status === 200) {
+                        setUser(payload.data);
+                        console.log(payload.data);
+                    }
+                } catch (error) {
+                    // console.error(error);
+                    setUser(null);
                 }
-            } catch (error) {
-                // console.error(error);
-                setUser(null);
             }
-        }
 
-        async function checkToken() {
-            const accessToken = await AS.getAccessToken();
-            if (typeof accessToken !== 'undefined' || accessToken !== null) {
-                getUserInformation(accessToken);
+            async function checkToken() {
+                const accessToken = await AS.getAccessToken();
+                if (typeof accessToken !== 'undefined' || accessToken !== null) {
+                    getUserInformation(accessToken);
+                }
             }
-        }
-        checkToken();
+            checkToken();
+        })
+        return () => unsubscribe;
     }, []);
+
+    const logout = async() => {
+        await AS.clearAll();
+        setUser(null);
+    }
+
     return (
         <SafeAreaView style={styles.container}>
             <Header title="Settings" />
@@ -85,6 +94,13 @@ const Setting = ({navigation}) => {
                             />
                         }
                     />
+                    { user && <SettingButton
+                        title="Logout"
+                        left={
+                            <Icon name="sign-out-alt" type="font-awesome-5" size={24} />
+                        }
+                        onPress={() => logout()}
+                    />}
                     <View style={styles.wrapperConfig}>
                         <ConfigButton />
                         <ConfigButton
