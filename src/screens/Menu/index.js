@@ -560,7 +560,6 @@ const Menu = ({navigation}) => {
                                 renderItem={item => {
                                     return (
                                         <RecentJobItem
-                                            
                                             item={item.item}
                                             onPress={() =>
                                                 navigation.navigate(
@@ -665,29 +664,31 @@ const Menu = ({navigation}) => {
             </Animated.View>
             <Animated.View style={[styles.wrapperFilter, {right: filterValue}]}>
                 <View style={styles.filterContainer}>
-                    <TouchableOpacity
-                        style={styles.closeButton}
-                        onPress={() => onFilterClickHandle()}>
-                        <Icon
-                            name="arrow-right"
-                            type="font-awesome-5"
-                            size={24}
-                            color="#666666"
-                        />
-                    </TouchableOpacity>
-                    {listMajor !== null ? <FilterRender /> : null}
-                    <TouchableOpacity
-                        activeOpacity={0.8}
-                        style={styles.filterButton}
-                        onPress={() => setMajorFilter('')}>
-                        <Text style={styles.textFilter}>Clear Filter</Text>
-                        <Icon
-                            name="times"
-                            type="font-awesome-5"
-                            size={24}
-                            color="#666666"
-                        />
-                    </TouchableOpacity>
+                    <ScrollView>
+                        <TouchableOpacity
+                            style={styles.closeButton}
+                            onPress={() => onFilterClickHandle()}>
+                            <Icon
+                                name="arrow-right"
+                                type="font-awesome-5"
+                                size={24}
+                                color="#666666"
+                            />
+                        </TouchableOpacity>
+                        {listMajor !== null ? <FilterRender /> : null}
+                        <TouchableOpacity
+                            activeOpacity={0.8}
+                            style={styles.filterButton}
+                            onPress={() => setMajorFilter('')}>
+                            <Text style={styles.textFilter}>Clear Filter</Text>
+                            <Icon
+                                name="times"
+                                type="font-awesome-5"
+                                size={24}
+                                color="#666666"
+                            />
+                        </TouchableOpacity>
+                    </ScrollView>
                 </View>
             </Animated.View>
         </SafeAreaView>
@@ -772,6 +773,7 @@ const styles = StyleSheet.create({
     filterContainer: {
         justifyContent: 'flex-start',
         paddingVertical: 7,
+        paddingBottom: 65,
     },
     closeButton: {
         alignItems: 'flex-start',

@@ -68,10 +68,10 @@ const RecentJobItem = ({item, onPress}) => {
                 </View>
                 <View style={styles.lefttimeView}>
                     <Text
-                        style={
-                            (styles.lefttimeText,
-                            lefttime === 'Expired' ? {color: 'red'} : null)
-                        }>
+                        style={[
+                            styles.lefttimeText,
+                            lefttime === 'Expired' ? {color: 'red'} : null,
+                        ]}>
                         {lefttime}
                     </Text>
                 </View>
@@ -148,13 +148,18 @@ const styles = StyleSheet.create({
     textJob: {
         fontSize: 14,
         fontWeight: 'bold',
+        overflow: 'hidden'
     },
     textName: {
         fontSize: 10,
         fontWeight: '400',
     },
+    lefttimeView: {
+        width: 55,
+        maxWidth: 55,
+    },
     lefttimeText: {
-        fontSize: 11,
+        fontSize: 9,
         fontWeight: '500',
         color: '#6ECB96',
     },
